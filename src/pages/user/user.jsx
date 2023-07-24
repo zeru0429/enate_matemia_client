@@ -1,9 +1,19 @@
-import React from 'react'
+import Datatable from '../../components/dataTable/DataTable'
+import "./user.css";
 
-const user = () => {
+const Users = () => {
+  
+
   return (
-    <div>user</div>
-  )
-}
+    <div className="users">
+      <div className="info">
+        <h1>Users</h1>
+        <button >Add New User</button>
+      </div>
+      <Datatable first='users'/>
+      
+    </div>
+  );
+};
 
-export default user
+export default Users;

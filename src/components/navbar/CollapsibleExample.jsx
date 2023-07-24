@@ -6,7 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Person2SharpIcon from '@mui/icons-material/Person2Sharp';
 import ModeNightOutlinedIcon from '@mui/icons-material/ModeNightOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-
+import {Link} from 'react-router-dom'
 function CollapsibleExample() {
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -15,10 +15,10 @@ function CollapsibleExample() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-             <Nav.Link href="#pricing">Pricing</Nav.Link>
-             <Nav.Link href="#features">Orders</Nav.Link>
-             <Nav.Link href="#features">Completed Orders</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
+             <Nav.Link href="/pricing">Pricing</Nav.Link>
+             <Nav.Link href="/order">Orders</Nav.Link>
+             <Nav.Link href="/user">users</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link eventKey={2} href="#memes">

@@ -1,9 +1,11 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
 
 function NavTabsExample() {
   return (
+    <Container >
     <Card>
       <Card.Header>
         <Nav variant="tabs" defaultActiveKey="#first">
@@ -28,6 +30,7 @@ function NavTabsExample() {
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
     </Card>
+    </Container>
   );
 }
 

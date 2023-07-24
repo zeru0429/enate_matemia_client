@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import axios from 'axios';
-import { Container } from '@mui/material';
+import {  DataGrid,
+  GridColDef,
+  GridToolbar, } from '@mui/x-data-grid';
 
-export default function DataTable({first}) {
+import axios from 'axios';
+import { Container, TextField, Button } from '@mui/material';
+import { saveAs } from 'file-saver';
+import { useReactToPrint } from 'react-to-print';
+import './dataTable.css'; // add the CSS file
+import Button2 from 'react-bootstrap/Button';
+
+
+
+
+
+export default function DataTable({first, name}) {
   const [user, setUser] = useState([]);
+  const [filteredUser, setFilteredUser] = useState([]);
+  const componentRef = React.useRef(null);
 
   useEffect(() => {
     fetchData();
@@ -14,6 +27,7 @@ export default function DataTable({first}) {
     try {
       const response = await axios.get(`http://localhost:8100/${first}`);
       setUser(response.data);
+      setFilteredUser(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -22,25 +36,94 @@ export default function DataTable({first}) {
   const columns = user.length > 0 ? Object.keys(user[0]).map((key) => ({
     field: key,
     headerName: key.charAt(0).toUpperCase() + key.slice(1),
-    width: 130,
+    width: 1000/user.length,
   })) : [];
 
-  const rows = user.map((us) => ({
+  const rows = filteredUser.map((us) => ({
     ...us,
   }));
 
+    const actionColumn= {
+    field: "action",
+    headerName: "Action",
+    width: 200,
+    renderCell: (params) => {
+      return (
+        <div className="action">
+          <Link to={`/${props.slug}/${params.row.id}`}>
+            <img src="/view.svg" alt="" />
+          </Link>
+          <div className="delete" onClick={() => handleDelete(params.row.id)}>
+            <img src="/delete.svg" alt="" />
+          </div>
+        </div>
+      );
+    },
+  };
+
+  const handleSearch = (event) => {
+    const keyword = event.target.value.toLowerCase();
+    const results = user.filter((row) => {
+      return Object.values(row).some((value) =>
+        value.toString().toLowerCase().includes(keyword)
+      );
+    });
+    setFilteredUser(results);
+  };
+
+  const handleDownload = () => {
+    const csvContent = "data:text/csv;charset=utf-8," + columns.map((column) => column.headerName).join(",") + "\n" +
+      filteredUser.map((row) => Object.values(row).join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, `${name}.csv`);
+  };
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
+  
+
+ 
+
   return (
-    <Container>
-      <div style={{ height: '100%', width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          getRowId={(row) => row.id}
-          pageSize={5}
-          rowsPerPageOptions={[5, 10, 20]}
-          checkboxSelection
-        />
-      </div>
-    </Container>
+    
+      <Container>
+        <div className='d-flex align-items-right mb-3'>
+         <Button2 className='mr-2' variant="outline-primary" onClick={handleDownload}>Download</Button2>{' '}          
+          <Button2 variant="outline-warning" onClick={handlePrint}>Print</Button2>{' '}
+        </div>
+
+        <div  ref={componentRef}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 6,
+                },
+              },
+            }}
+            getRowId={(row) => row.id}
+            slots={{toolbar: GridToolbar }}
+            slotProps={{
+              toolbar: {
+                showQuickFilter: true,
+                quickFilterProps: { debounceMs: 300 },
+              },
+            }}
+            pageSizeOptions={[5]}
+            checkboxSelection
+            disableRowSelectionOnClick
+            disableColumnFilter
+            disableDensitySelector
+            disableColumnSelector
+            className="dataTable" // add the class name
+            
+          />
+        </div>
+      </Container>
+    
   );
 }
