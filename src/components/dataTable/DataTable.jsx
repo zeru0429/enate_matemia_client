@@ -41,25 +41,9 @@ export default function DataTable({first, name}) {
 
   const rows = filteredUser.map((us) => ({
     ...us,
+    
   }));
 
-    const actionColumn= {
-    field: "action",
-    headerName: "Action",
-    width: 200,
-    renderCell: (params) => {
-      return (
-        <div className="action">
-          <Link to={`/${props.slug}/${params.row.id}`}>
-            <img src="/view.svg" alt="" />
-          </Link>
-          <div className="delete" onClick={() => handleDelete(params.row.id)}>
-            <img src="/delete.svg" alt="" />
-          </div>
-        </div>
-      );
-    },
-  };
 
   const handleSearch = (event) => {
     const keyword = event.target.value.toLowerCase();
