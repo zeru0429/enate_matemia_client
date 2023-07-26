@@ -44,7 +44,7 @@ const Login = () => {
     if (!form.pass || !passRegex.test(form.pass)) {
       setError({
         ...errors,
-        pass: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character'
+        pass: "Password must be at least 8 characters with uppercase, lowercase, digit, and special character"
       });
       isValid = false;
     }
@@ -53,7 +53,7 @@ const Login = () => {
   };
 
   return (
-    <Container className="d-flex mt-3 justify-content-center align-items-center vh-50">
+    <Container style={{ maxWidth: '50vh' }} className="d-flex mt-3 justify-content-center align-items-center vh-50">
       <main className="form-signin">
         <Form onSubmit={handleSubmit}>
           <div className="text-center mb-4">
@@ -63,13 +63,13 @@ const Login = () => {
 
           <Form.Group className="mb-4" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email"
+            <Form.Control class type="email" placeholder="Enter email"
               required
               value={form.email || ''}
               onChange={(e) => setField('email', e.target.value)}
               isInvalid={!!errors.email}
             />
-            <Form.Control.Feedback type='invalid'>
+            <Form.Control.Feedback type='invalid' style={{ maxWidth: '300px' }}>
               {errors.email}
             </Form.Control.Feedback>
           </Form.Group>
@@ -81,7 +81,7 @@ const Login = () => {
               onChange={(e) => setField('pass', e.target.value)}
               isInvalid={!!errors.pass}
             />
-            <Form.Control.Feedback type='invalid'>
+            <Form.Control.Feedback type='invalid' style={{ maxWidth: '300px' }} >
               {errors.pass}
             </Form.Control.Feedback>
           </Form.Group>

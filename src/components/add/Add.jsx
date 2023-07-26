@@ -60,6 +60,7 @@ const Add = (props) => {
                 <Form.Label >{column.headerName}</Form.Label>
                 {column.type === 'select' && (
                   <Form.Control
+                    required
                     as="select"
                     name={column.field}
                     value={formData[column.field] || ''}
