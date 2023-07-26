@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./user.css";
 import DataTable from "../../components/dataTable/DataTable";
-import AddUser from "../../components/add/Add";
+import Add from "../../components/add/Add";
 import { userRows } from "../../components/data";
 
 const columns = [
@@ -56,23 +56,29 @@ const Users = () => {
   const [open, setOpen] = useState(false);
 
   const handleAddUserClick = () => {
+    console.log("object");
     setOpen(true);
   };
 
   const handleCloseAddUser = () => {
+    console.log("not object");
     setOpen(false);
   };
 
   return (
-    <div className="users">
+    <div className="users" >
       <div className="info">
         <h1>Users</h1>
         <button onClick={handleAddUserClick}>Add New User</button>
       </div>
       <DataTable first="users" columns={columns} rows={userRows} />
-      {open && <AddUser handleClose={handleCloseAddUser} />}
+      <h1>kkkkk</h1>
+      {open &&<Add name= 'user' columns={columns} setOpen={setOpen} />}
     </div>
   );
 };
 
 export default Users;
+
+
+// open && <AddUser handleClose={handleCloseAddUser} />

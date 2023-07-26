@@ -1,4 +1,4 @@
-.add {
+ .add {
   width: 100vw;
   height: 100vh;
   position: absolute;
@@ -10,34 +10,35 @@
   justify-content: center;
 }
 
-.add .modal {
+.add .modal1 {
   padding: 50px;
   border-radius: 10px;
-  background-color: $main-bg;
+  background-color: #2a3447;
   position: relative;
 }
 
-.add .modal h1 {
+
+.add .modal1 h1 {
   margin-bottom: 40px;
   font-size: 24px;
-  color: $soft-color;
+  color: #384256;
 }
 
-.add .modal .close {
+.add .modal1 .close {
   position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
 }
 
-.add .modal form {
+.add .modal1 form {
   display: flex;
   flex-wrap: wrap;
   max-width: 500px;
   justify-content: space-between;
 }
 
-.add .modal form .item {
+.add .modal1 form .item {
   width: 40%;
   display: flex;
   flex-direction: column;
@@ -45,11 +46,11 @@
   margin-bottom: 20px;
 }
 
-.add .modal form .item label {
+.add .modal1 form .item label {
   font-size: 14px;
 }
 
-.add .modal form .item input {
+.add .modal1 form .item input {
   padding: 10px;
   background-color: transparent;
   color: white;
@@ -58,8 +59,8 @@
   border-radius: 3px;
 }
 
-.add .modal form button {
+.add .modal1 form button {
   width: 100%;
   padding: 10px;
   cursor: pointer;
-}
+} 
