@@ -63,7 +63,7 @@ const Login = () => {
 
           <Form.Group className="mb-4" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control class type="email" placeholder="Enter email"
+            <Form.Control type="email" placeholder="Enter email"
               required
               value={form.email || ''}
               onChange={(e) => setField('email', e.target.value)}
