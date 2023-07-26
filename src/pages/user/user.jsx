@@ -5,51 +5,68 @@ import Add from "../../components/add/Add";
 import { userRows } from "../../components/data";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 90 },
   {
-    field: "img",
-    headerName: "Avatar",
-    width: 100,
-    renderCell: (params) => {
-      return <img src={params.row.img || "/noavatar.png"} alt="" />;
-    },
+    field: 'f_name',
+    headerName: 'First Name',
+    type: 'text',
+    required: true
   },
   {
-    field: "firstName",
-    type: "string",
-    headerName: "First name",
-    width: 150,
+    field: 'm_name',
+    headerName: 'Middle Name',
+    type: 'text',
+    required: true
   },
   {
-    field: "lastName",
-    type: "string",
-    headerName: "Last name",
-    width: 150,
+    field: 'l_name',
+    headerName: 'Last Name',
+    type: 'text',
+    required: true
   },
   {
-    field: "email",
-    type: "string",
-    headerName: "Email",
-    width: 200,
+    field: 'phone',
+    headerName: 'Phone Number',
+    type: 'number',
+    required: true
   },
   {
-    field: "phone",
-    type: "string",
-    headerName: "Phone",
-    width: 200,
+    field: 'profile',
+    headerName: 'Profile picture',
+    type: 'file',
+    required: true
   },
   {
-    field: "createdAt",
-    headerName: "Created At",
-    width: 200,
-    type: "string",
+    field: 'role',
+    headerName: 'Role',
+    type: 'select',
+    options: [
+      { label: 'Guest', value: 'guest' },
+      { label: 'super', value: 'super' },
+      { label: 'casher', value: 'casher' },
+      { label: 'operator', value: 'operator' },
+    ],
+    required: true
   },
   {
-    field: "verified",
-    headerName: "Verified",
-    width: 150,
-    type: "boolean",
+    field: 'username',
+    headerName: 'Username',
+    type: 'text',
+    required: true
   },
+
+  {
+    field: 'password',
+    headerName: 'password',
+    type: 'password',
+    required: true
+  },
+  {
+    field: 'c_password',
+    headerName: 'confirm password',
+    type: 'password',
+    required: true
+  },
+
 ];
 
 const Users = () => {
@@ -72,7 +89,6 @@ const Users = () => {
         <button onClick={handleAddUserClick}>Add New User</button>
       </div>
       <DataTable first="users" columns={columns} rows={userRows} />
-      <h1>kkkkk</h1>
       {open &&<Add name= 'user' columns={columns} setOpen={setOpen} />}
     </div>
   );
