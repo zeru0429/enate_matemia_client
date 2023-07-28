@@ -14,8 +14,8 @@ import Login from './pages/login/Login'
 import Order from './pages/order/Order'
 import Price from './pages/price/Price'
 import User from './pages/user/User'
-
-
+import Product from './pages/product/Product'
+import Fo4 from './pages/fo4/Fo4 '
 
 
 function App() {
@@ -29,6 +29,8 @@ function App() {
         <Route path='/order' element={<Order />} />
         <Route path='/price' element={<Price />} />
         <Route path='/user' element={<User />} />
+        <Route path='/product' element={<Product />} />
+        <Route path='*' element={<Fo4 />} />
       </Routes>
       <Footer />
 

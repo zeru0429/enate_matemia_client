@@ -88,7 +88,7 @@ const Users = () => {
         <h1>Users</h1>
         <button className="btn btn-primary" onClick={handleAddUserClick}>Add New User</button>
       </div>
-      <DataTable first="users" columns={columns} rows={userRows} />
+      <DataTable first="users" />
       {open &&<Add name= 'user' columns={columns} setOpen={setOpen} />}
     </div>
   );
