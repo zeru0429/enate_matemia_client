@@ -1,6 +1,4 @@
 import React,{ useState } from 'react'
-import NavTabsExample from './NavTabsExample'
-import rows from '../../components/data'
 import Datatable from '../../components/dataTable/DataTable'
 import Add from "../../components/add/Add";
 
@@ -69,13 +67,13 @@ const Order = () => {
 
 
   return (
-    <div className='container'>
-      <div className="container m-5">
+    <div className='products'>
+      <div className="info">
         <h1>Orders</h1>
-        <button className='btn btn-primary'> Add new order </button>
+        <button className='btn btn-primary' onClick={handleAddUserClick}> Add new order </button>
       </div>
       <Datatable first='orders'/>
-     {open &&<Add name= 'products' columns={columns} setOpen={setOpen} />}
+     {open &&<Add name= 'Order' columns={columns} setOpen={setOpen} />}
     </div>
   )
 }

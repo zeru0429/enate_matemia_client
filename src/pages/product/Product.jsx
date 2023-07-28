@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
 import './product.css'
 import DataTable from "../../components/dataTable/DataTable";
 import Add from "../../components/add/Add";
@@ -39,8 +38,6 @@ const columns = [
 ];
     
 const Product = () => {
-
-  const[product,setProduct]= useState([])
   const [open, setOpen] = useState(false);
     
   const handleAddUserClick = () => {
@@ -53,24 +50,6 @@ const Product = () => {
       setOpen(false);
     };
     
-  useEffect(() => {
-    fetchData();
-    }, []);
-
-    const fetchData = async () => {
-    try {
-    const response = await axios.get(`http://localhost:8100/products`);
-    setProduct(response.data);
-    } catch (error) {
-    console.error(error);
-    }
-  };
-
-
-console.log(product);
-
-
-
 
   return (
      <div className="products" >
