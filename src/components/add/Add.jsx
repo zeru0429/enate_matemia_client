@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './add.css';
 import { Form, Button } from 'react-bootstrap';
 
@@ -7,94 +8,47 @@ const Add = (props) => {
   const [errors, setErrors] = useState({});
 
  const setField = (field, value) => {
-  console.log(value);
+  //console.log(value);
   setForm({
     ...form,
     [field]: value
   });
 
-  const regex = /^[a-zA-Z ]+$/; // regex for name fields
-  const phoneRegex = /^\+251\d{9}$/; // regex for phone number field
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // regex for email field
-  const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/; // regex for password field
-
-  // Validate input fields
-  if (field === 'f_name' || field === 'm_name' || field === 'l_name') { // validate name fields
-    if (!value || !regex.test(value)) {
-      setErrors(errors => ({
-        ...errors,
-        [field]: `Please enter a valid ${field === 'f_name' ? 'first' : field === 'm_name' ? 'middle' : 'last'} name`
-      }));
-    } else {
-      setErrors(errors => ({
-        ...errors,
-        [field]: null
-      }));
-    }
-  } else if (field === 'phone') { // validate phone number field
-    if (!value || !phoneRegex.test(value)) {
-      setErrors(errors => ({
-        ...errors,
-        [field]: 'Please enter a valid Ethiopian phone number (+251)'
-      }));
-    } else {
-      setErrors(errors => ({
-        ...errors,
-        [field]: null
-      }));
-    }
-  } else if (field === 'email') { // validate email field
-    if (!value || !emailRegex.test(value)) {
-      setErrors(errors => ({
-        ...errors,
-        [field]: 'Please enter a valid email address'
-      }));
-    } else {
-      setErrors(errors => ({
-        ...errors,
-        [field]: null
-      }));
-    }
-  } else if (field === 'password' || field === 'c_password') { // validate password fields
-    if (!value || !passRegex.test(value)) {
-      setErrors(errors => ({
-        ...errors,
-        [field]: 'Password must be at least 8 characters with uppercase, lowercase, digit, and special character'
-      }));
-    } else {
-      setErrors(errors => ({
-        ...errors,
-        [field]: null
-      }));
-    }
-  } else { // for all other fields
-    if (!value) {
-      setErrors(errors => ({
-        ...errors,
-        [field]: `Please enter a valid ${field}`
-      }));
-    } else {
-      setErrors(errors => ({
-        ...errors,
-        [field]: null
-      }));
-    }
-  }
+  
 };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
       console.log(form);
+      axios.post('http://localhost:8100/addNewUser/', {
+          form
+      })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
     }
+    console.log(errors);
   };
 
   const validateForm = () => {
     let isValid = true;
     const nameRegex = /^[a-zA-Z ]+$/
-    const phoneRegex = /^09\d{8}$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoeRegx =/^09[0-9]{8}$/
     const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
   
+    // Validate first name
+    if (!form.phone || !phoeRegx.test(form.phone)) {
+      setErrors({
+        ...errors,
+        phone: 'Please enter a valid Ethiopian number'
+      });
+      isValid = false;
+    }
+   
     // Validate first name
     if (!form.f_name || !nameRegex.test(form.f_name)) {
       setErrors({
@@ -122,15 +76,6 @@ const Add = (props) => {
       isValid = false;
     }
   
-    // Validate phone number
-    if (!form.phone || !phoneRegex.test(form.phone)) {
-      setErrors({
-        ...errors,
-        phone: 'Please enter a valid Ethiopian number (09)'
-      });
-      isValid = false;
-    }
-  
     // Validate profile picture
     if (!form.profile) {
       setErrors({
@@ -154,15 +99,6 @@ const Add = (props) => {
       setErrors({
         ...errors,
         username: 'Please enter a username'
-      });
-      isValid = false;
-    }
-  
-    // Validate email
-    if (!form.email || !emailRegex.test(form.email)) {
-      setErrors({
-        ...errors,
-        email: 'Please enter a valid email address'
       });
       isValid = false;
     }

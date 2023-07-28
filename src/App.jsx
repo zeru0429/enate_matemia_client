@@ -13,7 +13,7 @@ import Home from './pages/home/Home'
 import Login from './pages/login/Login'
 import Order from './pages/order/Order'
 import Price from './pages/price/Price'
-import User from './pages/user/User'
+import User from './pages/user/user'
 import Product from './pages/product/Product'
 import Fo4 from './pages/fo4/Fo4 '
 
