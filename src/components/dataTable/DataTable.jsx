@@ -106,8 +106,9 @@ export default function DataTable({ first, name }) {
   });
 
   const handleDelete = (idnum) => {
+    console.log(`http://localhost:8100/delete${first}/${idnum}`);
     axios
-      .delete(`http://localhost:8100/deleteUser/${idnum}`)
+      .delete(`http://localhost:8100/delete${first}/${idnum}`)
       .then((response) => {
         console.log(response.data);
         setDeleted(true); // update the deleted state
@@ -134,7 +135,7 @@ export default function DataTable({ first, name }) {
   return (
     <Container>
       <div className="d-flex align-items-right mb-3">
-        <Button2
+        {/* <Button2
           className="mr-2"
           variant="outline-primary"
           onClick={handleDownload}
@@ -143,7 +144,7 @@ export default function DataTable({ first, name }) {
         </Button2>
         <Button2 variant="outline-warning" onClick={handlePrint}>
           Print
-        </Button2>
+        </Button2> */}
       </div>
 
       <div ref={componentRef}>
