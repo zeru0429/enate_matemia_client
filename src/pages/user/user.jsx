@@ -2,8 +2,6 @@ import { useState } from "react";
 import "./user.css";
 import DataTable from "../../components/dataTable/DataTable";
 import Add from "../../components/add/Add";
-import { userRows } from "../../components/data";
-
 const columns = [
   {
     field: 'f_name',
@@ -71,6 +69,7 @@ const columns = [
 
 const Users = () => {
   const [open, setOpen] = useState(false);
+  
   const handleAddUserClick = () => {
     console.log("object");
     setOpen(true);

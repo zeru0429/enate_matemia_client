@@ -26,7 +26,6 @@ const Price = () => {
   return (  
     <div className='container d-flex m-5 col-12'>
       {product.map((item) => {
-        console.log(item);
         return (
           <div key={item.product_id} className='row'>
             <div className='col-4'>

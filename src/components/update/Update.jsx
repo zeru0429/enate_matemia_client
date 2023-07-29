@@ -1,43 +1,43 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './add.css';
+import './update.css';
 import { Form, Button } from 'react-bootstrap';
 
-const Add = (props) => {
+const Update = (props) => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
- const setField = (field, value) => {
-  //console.log(value);
-  setForm({
-    ...form,
-    [field]: value
-  });
+  const setField = (field, value) => {
+    setForm({
+      ...form,
+      [field]: value
+    });
+  };
 
-  
-};
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
       console.log(form);
-      axios.post('http://localhost:8100/addNewUser/', {
+      axios
+        .post('http://localhost:8100/addNewUser/', {
           form
-      })
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
+        })
+        .then((response) => {
+          console.log(response.data);
+          props.onUpdateSuccess(); // call the callback function to hide the Update component and show the Show component
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
     console.log(errors);
   };
 
+  // validation code...
   const validateForm = () => {
     let isValid = true;
     const nameRegex = /^[a-zA-Z ]+$/
-    const phoeRegx =/^09[0-9]{8}$/
+    const phoeRegx = /^09[0-9]{8}$/
     const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
   
     // Validate first name
@@ -124,61 +124,35 @@ const Add = (props) => {
     return isValid;
   };
 
-
   return (
-    <>
-      <div className="add">
-        <div className="modal1">
-          <span className="close" onClick={() => {props.setOpen(false)}}>
-            X
-          </span>
-
-          <h1>Add new {props.name}</h1>
-
-          <Form onSubmit={handleSubmit}>
-            {props.columns.map((column) => (
-              <Form.Group key={column.field}>
-                <Form.Label >{column.headerName}</Form.Label>
-                {column.type === 'select' && (
-                  <Form.Control
-                    required
-                    as="select"
-                    name={column.field}
-                    value={form[column.field] || ''}
-                    onChange={(e) => setField(column.field, e.target.value)}
-                  >
-                    <option value="">None</option>
-                    {column.options.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </Form.Control>
-                )}
-                {column.type !== 'select' && (
-                  <Form.Control
-                    type={column.type}
-                    name={column.field}
-                    placeholder={column.field}
-                    value={form[column.field] || ''}
-                    onChange={(e) => setField(column.field, e.target.value)}
-                    isInvalid={!!errors[column.field]}
-                    required={column.required}
-                  />
-                )}
-                {errors[column.field] && (
-                  <Form.Control.Feedback type="invalid">
-                    {errors[column.field]}
-                  </Form.Control.Feedback>
-                )}
-              </Form.Group>
-            ))}
-            <Button type="submit">Submit</Button>
-          </Form>
-        </div>
+    <div className="show1">
+      <div className="modal1">
+        <span className="close" onClick={() => {props.setOpen(false)}}>
+          X
+        </span>
+        { console.log(props)}
+        <h1>Update {props.name}</h1>
+        <Form onSubmit={handleSubmit}>
+          {Object.entries(props.columns).map(([key, value]) => ( 
+            
+        <Form.Group className="d-flex m-0 p-0" key={key} controlId={key}>
+              <Form.Label className='col-3' >{value[0]}</Form.Label>
+              <Form.Control
+                className='col-1 '
+                type="text"
+                value={value[1] || ''}
+                onChange={(e) => setField(key, e.target.value)}
+              />
+              {errors[key] && (
+                <Form.Text className="text-danger">{errors[key]}</Form.Text>
+              )}
+            </Form.Group>
+          ))}
+          <Button type="submit">Submit</Button>
+        </Form>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Add;
+export default Update;
