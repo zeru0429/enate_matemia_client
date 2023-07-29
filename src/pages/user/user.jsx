@@ -71,7 +71,6 @@ const columns = [
 
 const Users = () => {
   const [open, setOpen] = useState(false);
-
   const handleAddUserClick = () => {
     console.log("object");
     setOpen(true);

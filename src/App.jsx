@@ -16,6 +16,7 @@ import Price from './pages/price/Price'
 import User from './pages/user/user'
 import Product from './pages/product/Product'
 import Fo4 from './pages/fo4/Fo4 '
+import SinglePage from './components/singlePage/SinglePage';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path='/price' element={<Price />} />
         <Route path='/user' element={<User />} />
         <Route path='/product' element={<Product />} />
+        <Route path='/single' element={<SinglePage />} />
         <Route path='*' element={<Fo4 />} />
       </Routes>
       <Footer />
