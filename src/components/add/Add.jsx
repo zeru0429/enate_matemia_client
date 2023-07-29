@@ -124,6 +124,21 @@ const Add = (props) => {
     return isValid;
   };
 
+  const handleDelete = () => {
+    axios
+      .delete(`http://localhost:8100/deleteUser/78`)
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ deleted: true });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+
+
+
   return (
     <>
       <div className="add">
