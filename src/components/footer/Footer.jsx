@@ -5,7 +5,7 @@ import Person2SharpIcon from '@mui/icons-material/Person2Sharp';
 
 function Footer() {
   return (
-    <Navbar bg="light" variant="light" className="fixed-bottom">
+    <Navbar bg="light" variant="light" className="fixed-bottom mt-5">
       <Container>
         <Nav className="me-auto">
           <Nav.Link href="#">About Us</Nav.Link>

@@ -52,9 +52,9 @@ const Product = () => {
     
 
   return (
-     <div className="products" >
+     <div className="products container center" >
       <div className="info">
-        <h1>Products</h1>
+        <h1 className=''>Products</h1>
         <button className="btn btn-primary" onClick={handleAddUserClick}>Add New Product</button>
       </div>
       <DataTable first="products" />

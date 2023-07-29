@@ -81,8 +81,8 @@ const Users = () => {
   };
 
   return (
-    <div className="users" >
-      <div className="info">
+    <div className="users container m-5" >
+      <div className="info center">
         <h1>Users</h1>
         <button className="btn btn-primary" onClick={handleAddUserClick}>Add New User</button>
       </div>

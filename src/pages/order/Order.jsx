@@ -67,8 +67,8 @@ const Order = () => {
 
 
   return (
-    <div className='products'>
-      <div className="info">
+    <div className='products container'>
+      <div className="info center">
         <h1>Orders</h1>
         <button className='btn btn-primary' onClick={handleAddUserClick}> Add new order </button>
       </div>
