@@ -39,3 +39,25 @@
   max-width: 100%;
   overflow-x: auto;
 }
+/* Add the following CSS styles to the existing CSS file */
+
+/* Make the table container responsive */
+.dataTable {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Adjust the column width for small screens */
+@media screen and (max-width: 768px) {
+  .MuiDataGrid-columnHeaderTitle {
+    font-size: 12px;
+  }
+
+  .MuiDataGrid-colCellTitle {
+    font-size: 12px;
+  }
+
+  .MuiDataGrid-cell {
+    font-size: 12px;
+  }
+}

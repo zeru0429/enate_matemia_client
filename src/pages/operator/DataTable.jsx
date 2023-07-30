@@ -22,6 +22,8 @@ export default function DataTable({ first, name }) {
   const componentRef = React.useRef(null);
   const [deleted, setDeleted] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null); // State to hold the single-clicked row data
+  
+
 
   useEffect(() => {
     fetchData();
@@ -89,7 +91,7 @@ const columns = user.length > 0
 
       const onClickCompleted = () => {
         // console.log(params.row);
-      handleComplete(`${params.row.id}`,`${params.row.product_name}`);
+      handleUpdateStatus(`${params.row.id}`,`${params.row.product_name}`);
       };
       if (first == 'not-completed-oreder') {
         return (
@@ -148,30 +150,41 @@ const columns = user.length > 0
   });
 
 
-const handleComplete = (idnum, name) => {
-  const url = `${myGlobalVariable}update${first}/${idnum}`;
-  const data = { status: 'completed' };
+  const handleUpdateStatus = (idnum, name) => {
+    const url = `${myGlobalVariable}update${first}/${idnum}`;
+    const data = { status: 'completed' };
 
-  axios.put(url, data)
-    .then((response) => {
-      console.log(response.data);
-
-      // update the filteredUser state by setting the status of the completed task to "completed"
-      setFilteredUser(prevFilteredUser => prevFilteredUser.map((row) => {
-        if (row.id === idnum && row.product_name === name) {
-          return {
-            ...row,
-            status: 'completed',
-          };
-        } else {
-          return row;
+    axios.put(url, data)
+      .then((response) => {
+        if (response.status != 200) { 
+        // update the filteredUser state by setting the status of the completed task to "completed"
+        setFilteredUser(prevFilteredUser => prevFilteredUser.map((row, index) => {
+          if (row.id === idnum && row.product_name === name) {
+            return {
+              ...row,
+              status: 'completed',
+            };
+          } else if (index === 0 && row.status === 'ordered') {
+            // set the status of the first row with status "ordered" to "pending"
+            return {
+              ...row,
+              status: 'pending',
+            };
+          } else {
+            return row;
+          }
+        }));
+      
         }
-      }));
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
+        
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    
+    
+  };
+
 
 
   useEffect(() => {
