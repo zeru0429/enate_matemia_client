@@ -1,6 +1,7 @@
-import React,{ useState } from 'react'
+import React,{ useState,useEffect } from 'react'
 import Datatable from '../../components/dataTable/DataTable'
 import Add from "../../components/add/Add";
+
 
 const columns = [
   {

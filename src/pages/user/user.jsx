@@ -94,5 +94,3 @@ const Users = () => {
 
 export default Users;
 
-
-// open && <AddUser handleClose={handleCloseAddUser} />

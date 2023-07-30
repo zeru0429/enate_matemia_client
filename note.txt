@@ -1,0 +1,6 @@
+////Free MySQL Hosting
+  // host: 'sql7.freemysqlhosting.net',
+  // port: '3306',
+  // user: "sql7636185",
+  // password: "RPJ7CEKBk8",
+  // database: "sql7636185",

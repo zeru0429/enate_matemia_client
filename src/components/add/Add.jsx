@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './add.css';
 import { Form, Button } from 'react-bootstrap';
+import { myGlobalVariable } from '../../constants'
 
 const Add = (props) => {
   const [form, setForm] = useState({});
@@ -20,7 +21,7 @@ const Add = (props) => {
     e.preventDefault();
     if (validateForm()) {
       console.log(form);
-      axios.post('http://localhost:8100/addNewUser/', {
+      axios.post(`${myGlobalVariable}addNewUser/`, {
           form
       })
       .then(response => {

@@ -17,8 +17,8 @@ import User from './pages/user/user'
 import Product from './pages/product/Product'
 import Fo4 from './pages/fo4/Fo4 '
 import SinglePage from './components/singlePage/SinglePage';
-
-
+import Operator from './pages/operator/Operator';
+import Notcompleted from './pages/operator/Notcompleted';
 function App() {
   return (
     <div className="app">
@@ -31,6 +31,8 @@ function App() {
         <Route path='/price' element={<Price />} />
         <Route path='/user' element={<User />} />
         <Route path='/product' element={<Product />} />
+        <Route path='/completed-oreder' element={<Operator />} />
+        <Route path='/not-completed-oreder' element={<Notcompleted />} />
         <Route path='/single' element={<SinglePage />} />
         <Route path='*' element={<Fo4 />} />
       </Routes>

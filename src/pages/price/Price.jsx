@@ -2,7 +2,7 @@ import React ,{useState,useEffect}from 'react'
 import axios from 'axios'
 import BorderExample from '../../components/card/BorderExample'
 import BasicExample from '../../components/card/BasicExample'
-
+import { myGlobalVariable } from '../../constants'
 const Price = () => {
   const[product,setProduct]= useState([])
   
@@ -12,7 +12,7 @@ const Price = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8100/products`);
+      const response = await axios.get(`${myGlobalVariable}products`);
       setProduct(response.data);
     } catch (error) {
       console.error(error);

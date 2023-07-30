@@ -1,0 +1,41 @@
+.dataTable .dataGrid {
+  background: white;
+  padding: 20px;
+}
+
+.dataTable .dataGrid .MuiDataGrid-toolbarContainer {
+  flex-direction: row-reverse;
+}
+
+.dataTable .dataGrid img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.dataTable .dataGrid .action {
+  display: flex;
+  gap: 15px;
+}
+
+.dataTable .dataGrid .action img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.table .Status.Approved {
+  color: green;
+  background-color: rgba(0, 128, 0, 0.151);
+}
+
+.table .Status.Pending {
+  color: goldenrod;
+  background-color: rgba(189, 189, 3, 0.103);
+}
+
+.dataTableWrapper {
+  max-width: 100%;
+  overflow-x: auto;
+}

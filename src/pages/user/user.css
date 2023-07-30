@@ -1,17 +1,24 @@
-.users{
-margin-bottom: 50px;
-padding-bottom: 100px;
+.users {
+  margin-bottom: 50px;
+  padding-bottom: 100px;
 }
 
-.users .info{
-display: flex;
-gap: 20px;
-margin-bottom: 20px;
-
-
+.users .info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.users .info button{
-padding: 5px;
-cursor: pointer;
+.users .info button {
+  padding: 5px;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 576px) {
+  .users .info {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }

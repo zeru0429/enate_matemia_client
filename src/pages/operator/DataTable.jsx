@@ -9,12 +9,10 @@ import { Container, TextField, Button } from '@mui/material';
 import { saveAs } from 'file-saver';
 import { useReactToPrint } from 'react-to-print';
 import './dataTable.css'; // add the CSS file
-import Button2 from 'react-bootstrap/Button';
+
 
 //component
-import SinglePage from '../singlePage/SinglePage';
-import { redirect } from 'react-router-dom';
-import Add from "../../components/add/Add";
+// import SinglePage from '../singlePage/SinglePage';
 import Show from "../../components/add/Show";
 import { myGlobalVariable } from '../../constants'
 export default function DataTable({ first, name }) {
@@ -40,13 +38,43 @@ export default function DataTable({ first, name }) {
   };
 
   // columns define for table
-  const columns = user.length > 0
-    ? Object.keys(user[0]).map((key) => ({
-        field: key,
-        headerName: key.charAt(0).toUpperCase() + key.slice(1),
-        flex: 1, // set the flex property of each column to 1
-      }))
-    : [];
+const columns = user.length > 0
+  ? Object.keys(user[0]).map((key) => ({
+      field: key,
+      headerName: key.charAt(0).toUpperCase() + key.slice(1),
+      flex: 1,
+      renderCell: (params) => {
+        if (key === 'status') {
+          const status = params.value.toLowerCase();
+          let color;
+
+          if (status === 'completed') {
+            color = 'green';
+          } else if (status === 'pending') {
+            color = 'orange';
+          } else if (status === 'ordered') {
+            color = 'red';
+          }
+
+          return (
+            <div style={{ color }}>
+              {status}
+            </div>
+          );
+        } else if (key === 'action' && first === 'not-completed-oreder') {
+          // ...
+        } else if (key === 'action' && first === 'completed-oreder') {
+          // ...
+        } else {
+          return (
+            <div>
+              {params.value}
+            </div>
+          );
+        }
+      },
+    }))
+  : [];
 
   // action column definition with view and delete functionality
   const actionColumn = {
@@ -59,21 +87,34 @@ export default function DataTable({ first, name }) {
         handleAddUserClick(); // Open the Show component
       };
 
-      const onClickDelete = () => {
+      const onClickCompleted = () => {
         // console.log(params.row);
-       handleDelete(`${params.row.id}`,`${params.row.product_name}`);
+      handleComplete(`${params.row.id}`,`${params.row.product_name}`);
       };
-
-      return (
-        <div className="cellAction d-block">
-          <div className="viewButton btn btn-secondary" onClick={onClickView}>
-            View
+      if (first == 'not-completed-oreder') {
+        return (
+        
+          <div className="cellAction d-block">
+            <div className="viewButton btn btn-primary" onClick={onClickView}>
+              View
+            </div>
+            <div className="viewButton btn btn-secondary" onClick={onClickCompleted}>
+              Completed
+            </div>
           </div>
-          <div className="deleteButton btn btn-danger" onClick={onClickDelete}>
-            Delete
+        );
+      }
+      else if (first == 'completed-oreder') { 
+        return (
+        
+          <div className="cellAction d-block">
+             <div className="viewButton btn btn-primary" onClick={onClickView}>
+              View
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
+     
     },
   };
 
@@ -106,19 +147,32 @@ export default function DataTable({ first, name }) {
     content: () => componentRef.current,
   });
 
-  const handleDelete = (idnum,name) => {
-   // console.log(`http://localhost:8100/delete${first}/${idnum}`);
 
-    axios
-      .delete(`${myGlobalVariable}/delete${first}/${idnum}${name}`)
-      .then((response) => {
-        console.log(response.data);
-        setDeleted(true); // update the deleted state
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+const handleComplete = (idnum, name) => {
+  const url = `${myGlobalVariable}update${first}/${idnum}`;
+  const data = { status: 'completed' };
+
+  axios.put(url, data)
+    .then((response) => {
+      console.log(response.data);
+
+      // update the filteredUser state by setting the status of the completed task to "completed"
+      setFilteredUser(prevFilteredUser => prevFilteredUser.map((row) => {
+        if (row.id === idnum && row.product_name === name) {
+          return {
+            ...row,
+            status: 'completed',
+          };
+        } else {
+          return row;
+        }
+      }));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 
   useEffect(() => {
     if (deleted) {

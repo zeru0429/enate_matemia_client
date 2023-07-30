@@ -1,0 +1,40 @@
+.products {
+  margin-top: 20px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.info h1 {
+  font-size: 2rem;
+}
+
+.info button {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .info h1 {
+    margin-bottom: 10px;
+  }
+
+  .info button {
+    margin-top: 10px;
+  }
+
+  .dataTableWrapper {
+    overflow-x: auto;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+}
