@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   DataGrid,
   GridColDef,
@@ -10,20 +10,17 @@ import { saveAs } from 'file-saver';
 import { useReactToPrint } from 'react-to-print';
 import './dataTable.css'; // add the CSS file
 
-
 //component
-// import SinglePage from '../singlePage/SinglePage';
 import Show from "../../components/add/Show";
 import { myGlobalVariable } from '../../constants'
+
 export default function DataTable({ first, name }) {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState([]);
   const [filteredUser, setFilteredUser] = useState([]);
-  const componentRef = React.useRef(null);
+  const componentRef = useRef(null);
   const [deleted, setDeleted] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null); // State to hold the single-clicked row data
-  
-
 
   useEffect(() => {
     fetchData();
@@ -40,43 +37,43 @@ export default function DataTable({ first, name }) {
   };
 
   // columns define for table
-const columns = user.length > 0
-  ? Object.keys(user[0]).map((key) => ({
-      field: key,
-      headerName: key.charAt(0).toUpperCase() + key.slice(1),
-      flex: 1,
-      renderCell: (params) => {
-        if (key === 'status') {
-          const status = params.value.toLowerCase();
-          let color;
+  const columns = user.length > 0
+    ? Object.keys(user[0]).map((key) => ({
+        field: key,
+        headerName: key.charAt(0).toUpperCase() + key.slice(1),
+        flex: 1,
+        renderCell: (params) => {
+          if (key === 'status') {
+            const status = params.value.toLowerCase();
+            let color;
 
-          if (status === 'completed') {
-            color = 'green';
-          } else if (status === 'pending') {
-            color = 'orange';
-          } else if (status === 'ordered') {
-            color = 'red';
+            if (status === 'completed') {
+              color = 'green';
+            } else if (status === 'pending') {
+              color = 'orange';
+            } else if (status === 'ordered') {
+              color = 'red';
+            }
+
+            return (
+              <div style={{ color }}>
+                {status}
+              </div>
+            );
+          } else if (key === 'action' && first === 'not-completed-oreder') {
+            // ...
+          } else if (key === 'action' && first === 'completed-oreder') {
+            // ...
+          } else {
+            return (
+              <div>
+                {params.value}
+              </div>
+            );
           }
-
-          return (
-            <div style={{ color }}>
-              {status}
-            </div>
-          );
-        } else if (key === 'action' && first === 'not-completed-oreder') {
-          // ...
-        } else if (key === 'action' && first === 'completed-oreder') {
-          // ...
-        } else {
-          return (
-            <div>
-              {params.value}
-            </div>
-          );
-        }
-      },
-    }))
-  : [];
+        },
+      }))
+    : [];
 
   // action column definition with view and delete functionality
   const actionColumn = {
@@ -91,11 +88,10 @@ const columns = user.length > 0
 
       const onClickCompleted = () => {
         // console.log(params.row);
-      handleUpdateStatus(`${params.row.id}`,`${params.row.product_name}`);
+        handleUpdateStatus(`${params.row.id}`,`${params.row.product_name}`);
       };
       if (first == 'not-completed-oreder') {
-        return (
-        
+        return (        
           <div className="cellAction d-block">
             <div className="viewButton btn btn-primary" onClick={onClickView}>
               View
@@ -105,10 +101,8 @@ const columns = user.length > 0
             </div>
           </div>
         );
-      }
-      else if (first == 'completed-oreder') { 
-        return (
-        
+      } else if (first == 'completed-oreder') { 
+        return (        
           <div className="cellAction d-block">
              <div className="viewButton btn btn-primary" onClick={onClickView}>
               View
@@ -116,7 +110,6 @@ const columns = user.length > 0
           </div>
         );
       }
-     
     },
   };
 
@@ -144,11 +137,6 @@ const columns = user.length > 0
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     saveAs(blob, `${name}.csv`);
   };
-
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
-
 
   const handleUpdateStatus = (idnum, name) => {
     const url = `${myGlobalVariable}update${first}/${idnum}`;
@@ -203,7 +191,7 @@ const columns = user.length > 0
 
   return (
     <Container>
-      <div ref={componentRef}>
+      <div ref={componentRef}>  
         <DataGrid
           rows={rows}
           columns={columns.concat(actionColumn)}
