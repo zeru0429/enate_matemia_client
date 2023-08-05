@@ -7,11 +7,12 @@ const Price = () => {
   const[product,setProduct]= useState([])
   
   useEffect(() => {
-    // console.log(`${myGlobalVariable}price`);
+   console.log(`${myGlobalVariable}price`);
     fetchData();
   }, []);
 
   const fetchData = async () => {
+    console.log(`http://localhost:8100/products`);
     try {
       const response = await axios.get(`${myGlobalVariable}price`);
       // console.log(`${myGlobalVariable}price`);
@@ -31,7 +32,7 @@ const Price = () => {
         return (
           <div key={item.id} className='row'>
             <div className='col-4'>
-            <BasicExample image_url={item.image_url} title={item.product_name} description={item.date_of_update}/>
+            <BasicExample image_url={`http://localhost:8100/${item.image_url}`} title={item.product_name} description={item.date_of_update}/>
             </div>
           </div>
         );

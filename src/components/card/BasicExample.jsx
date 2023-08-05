@@ -5,7 +5,6 @@ function BasicExample(props) {
   return (
     <div className='container center col-4'>
       <Card style={{ width: '12rem' }}>
-        {console.log(props.image_url)}
         <Card.Img variant="top" src={props.image_url} alt='logo' />
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
