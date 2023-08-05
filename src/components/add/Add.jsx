@@ -2,129 +2,54 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './add.css';
 import { Form, Button } from 'react-bootstrap';
-import { myGlobalVariable } from '../../constants'
-
+import { myGlobalVariable } from '../../constants';
+import AlertExample from '../other/Alert'
 const Add = (props) => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
- const setField = (field, value) => {
-  //console.log(value);
-  setForm({
-    ...form,
-    [field]: value
-  });
+  const setField = (field, value) => {
+    setForm({
+      ...form,
+      [field]: value
+    });
+  };
 
-  
-};
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setForm({
+      ...form,
+      profile: file
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
+    if (validateForm()) {  
       console.log(form);
-      axios.post(`${myGlobalVariable}addNewUser/`, {
-          form
-      })
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.log(error);
+      const formData = new FormData();
+      Object.entries(form).forEach(([key, value]) => {
+        formData.append(key, value);
       });
-
+      axios
+        .post('http://localhost:8100/addNewproducts/', formData)
+        .then((response) => {
+          
+          { props.setOpen(false) }
+          <AlertExample message={`succesfully Added `} variant='success' />
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
     console.log(errors);
   };
 
   const validateForm = () => {
     let isValid = true;
-    const nameRegex = /^[a-zA-Z ]+$/
-    const phoeRegx =/^09[0-9]{8}$/
-    const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-  
-    // Validate first name
-    if (!form.phone || !phoeRegx.test(form.phone)) {
-      setErrors({
-        ...errors,
-        phone: 'Please enter a valid Ethiopian number'
-      });
-      isValid = false;
-    }
-   
-    // Validate first name
-    if (!form.f_name || !nameRegex.test(form.f_name)) {
-      setErrors({
-        ...errors,
-        f_name: 'Please enter a valid first name'
-      });
-      isValid = false;
-    }
-  
-    // Validate middle name
-    if (!form.m_name || !nameRegex.test(form.m_name)) {
-      setErrors({
-        ...errors,
-        m_name: 'Please enter a valid middle name'
-      });
-      isValid = false;
-    }
-  
-    // Validate last name
-    if (!form.l_name || !nameRegex.test(form.l_name)) {
-      setErrors({
-        ...errors,
-        l_name: 'Please enter a valid last name'
-      });
-      isValid = false;
-    }
-  
-    // Validate profile picture
-    if (!form.profile) {
-      setErrors({
-        ...errors,
-        profile: 'Please upload a profile picture'
-      });
-      isValid = false;
-    }
-  
-    // Validate role
-    if (!form.role) {
-      setErrors({
-        ...errors,
-        role: 'Please select a role'
-      });
-      isValid = false;
-    }
-  
-    // Validate username
-    if (!form.username) {
-      setErrors({
-        ...errors,
-        username: 'Please enter a username'
-      });
-      isValid = false;
-    }
-  
-    // Validate password
-    if (!form.password || !passRegex.test(form.password)) {
-      setErrors({
-        ...errors,
-        password: 'Password must be at least 8 characters with uppercase, lowercase, digit, and special character'
-      });
-      isValid = false;
-    }
-  
-    // Validate password confirmation
-    if (form.password !== form.c_password) {
-      setErrors({
-        ...errors,
-        c_password: 'Passwords do not match'
-      });
-      isValid = false;
-    }
-  
     return isValid;
-  };
-
+  }
 
   return (
     <>
@@ -133,13 +58,13 @@ const Add = (props) => {
           <span className="close" onClick={() => {props.setOpen(false)}}>
             X
           </span>
-
+        
           <h1>Add new {props.name}</h1>
 
           <Form onSubmit={handleSubmit}>
             {props.columns.map((column) => (
               <Form.Group key={column.field}>
-                <Form.Label >{column.headerName}</Form.Label>
+                <Form.Label>{column.headerName}</Form.Label>
                 {column.type === 'select' && (
                   <Form.Control
                     required
@@ -156,7 +81,17 @@ const Add = (props) => {
                     ))}
                   </Form.Control>
                 )}
-                {column.type !== 'select' && (
+                {column.type === 'image' && (
+                  <Form.Control
+                    type="file"
+                    name={column.field}
+                    accept="image/jpeg, image/png"
+                    onChange={handleFileChange}
+                    isInvalid={!!errors[column.field]}
+                    required={column.required}
+                  />
+                )}
+                {column.type !== 'select' && column.type !== 'image' && (
                   <Form.Control
                     type={column.type}
                     name={column.field}

@@ -16,7 +16,7 @@ const columns = [
     type: 'text',
     required: true
   },
-{
+  {
     field: 'measurement_units',
     headerName: 'measurement_units',
     type: 'text',
@@ -36,7 +36,7 @@ const columns = [
     required: true
   },
      {
-    field: 'image',
+    field: 'profile',
     headerName: 'Image',
     type: 'image',
     required: true
@@ -46,6 +46,7 @@ const columns = [
     
 const Product = () => {
   const [open, setOpen] = useState(false);
+  const [reload, setReload] = useState(false);
     
   const handleAddUserClick = () => {
       console.log("object");
@@ -64,6 +65,7 @@ const Product = () => {
         <h1 className=''>Products</h1>
         <button className="btn btn-primary" onClick={handleAddUserClick}>Add New Product</button>
       </div>
+      
       <DataTable first="products" />
       {open &&<Add name= 'products' columns={columns} setOpen={setOpen} />}
     </div>

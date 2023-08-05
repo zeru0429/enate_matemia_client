@@ -1,0 +1,89 @@
+ const validateForm = () => {
+    let isValid = true;
+    const nameRegex = /^[a-zA-Z ]+$/
+    const phoeRegx =/^09[0-9]{8}$/
+    const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+  
+    // Validate first name
+    if (!form.phone || !phoeRegx.test(form.phone)) {
+      setErrors({
+        ...errors,
+        phone: 'Please enter a valid Ethiopian number'
+      });
+      isValid = false;
+    }
+   
+    // Validate first name
+    if (!form.f_name || !nameRegex.test(form.f_name)) {
+      setErrors({
+        ...errors,
+        f_name: 'Please enter a valid first name'
+      });
+      isValid = false;
+    }
+  
+    // Validate middle name
+    if (!form.m_name || !nameRegex.test(form.m_name)) {
+      setErrors({
+        ...errors,
+        m_name: 'Please enter a valid middle name'
+      });
+      isValid = false;
+    }
+  
+    // Validate last name
+    if (!form.l_name || !nameRegex.test(form.l_name)) {
+      setErrors({
+        ...errors,
+        l_name: 'Please enter a valid last name'
+      });
+      isValid = false;
+    }
+  
+    // Validate profile picture
+    if (!form.profile) {
+      setErrors({
+        ...errors,
+        profile: 'Please upload a profile picture'
+      });
+      isValid = false;
+    }
+  
+    // Validate role
+    if (!form.role) {
+      setErrors({
+        ...errors,
+        role: 'Please select a role'
+      });
+      isValid = false;
+    }
+  
+    // Validate username
+    if (!form.username) {
+      setErrors({
+        ...errors,
+        username: 'Please enter a username'
+      });
+      isValid = false;
+    }
+  
+    // Validate password
+    if (!form.password || !passRegex.test(form.password)) {
+      setErrors({
+        ...errors,
+        password: 'Password must be at least 8 characters with uppercase, lowercase, digit, and special character'
+      });
+      isValid = false;
+    }
+  
+    // Validate password confirmation
+    if (form.password !== form.c_password) {
+      setErrors({
+        ...errors,
+        c_password: 'Passwords do not match'
+      });
+      isValid = false;
+    }
+  
+    return isValid;
+  };

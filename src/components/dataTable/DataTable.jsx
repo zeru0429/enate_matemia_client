@@ -1,27 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import {
-  DataGrid,
-  GridColDef,
-  GridToolbar,
-} from '@mui/x-data-grid';
+import React, { useEffect, useState, useRef } from 'react';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import axios from 'axios';
 import { Container, TextField, Button } from '@mui/material';
 import { saveAs } from 'file-saver';
 import { useReactToPrint } from 'react-to-print';
 import './dataTable.css'; // add the CSS file
 import Button2 from 'react-bootstrap/Button';
-
-//component
 import SinglePage from '../singlePage/SinglePage';
 import { redirect } from 'react-router-dom';
 import Add from "../../components/add/Add";
 import Show from "../../components/add/Show";
-import { myGlobalVariable } from '../../constants'
+import { myGlobalVariable } from '../../constants';
 export default function DataTable({ first, name }) {
+  const [reload, setReload] = useState(false);
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState([]);
   const [filteredUser, setFilteredUser] = useState([]);
-  const componentRef = React.useRef(null);
+  const componentRef = useRef(null);
   const [deleted, setDeleted] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null); // State to hold the single-clicked row data
 
@@ -29,24 +24,6 @@ export default function DataTable({ first, name }) {
     fetchData();
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(`${myGlobalVariable}${first}`);
-      setUser(response.data);
-      setFilteredUser(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // columns define for table
-  const columns = user.length > 0
-    ? Object.keys(user[0]).map((key) => ({
-        field: key,
-        headerName: key.charAt(0).toUpperCase() + key.slice(1),
-        flex: 1, // set the flex property of each column to 1
-      }))
-    : [];
 
   // action column definition with view and delete functionality
   const actionColumn = {
@@ -77,10 +54,16 @@ export default function DataTable({ first, name }) {
     },
   };
 
-  //row data define for table
-  const rows = filteredUser.map((us) => ({
-    ...us,
-  }));
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${myGlobalVariable}${first}`);
+      setUser(response.data);
+      setFilteredUser(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSearch = (event) => {
     const keyword = event.target.value.toLowerCase();
@@ -106,14 +89,13 @@ export default function DataTable({ first, name }) {
     content: () => componentRef.current,
   });
 
-  const handleDelete = (idnum,name) => {
-   // console.log(`http://localhost:8100/delete${first}/${idnum}`);
-
+  const handleDelete = (idnum, name) => {
     axios
-      .delete(`${myGlobalVariable}/delete${first}/${idnum}${name}`)
+      .delete(`${myGlobalVariable}delete${first}/${idnum}${name}`)
       .then((response) => {
         console.log(response.data);
         setDeleted(true); // update the deleted state
+        setReload(true); // trigger the re-render
       })
       .catch((error) => {
         console.error(error);
@@ -122,9 +104,31 @@ export default function DataTable({ first, name }) {
 
   useEffect(() => {
     if (deleted) {
-      window.location.reload();
+      setDeleted(false);
+      setReload(false);
     }
   }, [deleted]);
+
+  useEffect(() => {
+    if (reload) {
+      fetchData(); // Refetch the data to update the rows after deletion
+      setReload(false);
+    }
+  }, [reload]);
+
+  // columns define for table
+  const columns = user.length > 0
+    ? Object.keys(user[0]).map((key) => ({
+        field: key,
+        headerName: key.charAt(0).toUpperCase() + key.slice(1),
+        flex: 1, // set the flex property of each column to 1
+      }))
+    : [];
+
+  //row data define for table
+  const rows = filteredUser.map((us) => ({
+    ...us,
+  }));
 
   const handleAddUserClick = () => {
     setOpen(true);
@@ -140,8 +144,8 @@ export default function DataTable({ first, name }) {
         <DataGrid
           rows={rows}
           columns={columns.concat(actionColumn)}
-          autoHeight // set the autoHeight prop to true
-          columnBuffer={0} // set the columnBuffer prop to 0
+          autoHeight
+          columnBuffer={0}
           getRowId={(row) => row.id}
           slots={{ toolbar: GridToolbar }}
           slotProps={{
@@ -156,10 +160,9 @@ export default function DataTable({ first, name }) {
           disableColumnFilter
           disableDensitySelector
           disableColumnSelector
-          className="dataTable" // add the class name
+          className="dataTable"
         />
         {open && (
-          // Pass the necessary props to the Show component
           <Show name={name} columns={columns} setOpen={setOpen} rowData={selectedRowData} />
         )}
       </div>
