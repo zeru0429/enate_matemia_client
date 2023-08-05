@@ -7,12 +7,14 @@ const Price = () => {
   const[product,setProduct]= useState([])
   
   useEffect(() => {
+    // console.log(`${myGlobalVariable}price`);
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${myGlobalVariable}products`);
+      const response = await axios.get(`${myGlobalVariable}price`);
+      // console.log(`${myGlobalVariable}price`);
       setProduct(response.data);
     } catch (error) {
       console.error(error);
@@ -27,9 +29,9 @@ const Price = () => {
     <div className='container d-flex m-5 col-12'>
       {product.map((item) => {
         return (
-          <div key={item.product_id} className='row'>
+          <div key={item.id} className='row'>
             <div className='col-4'>
-            <BasicExample title={item.product_name} description={item.date_of_update}/>
+            <BasicExample image_url={item.image_url} title={item.product_name} description={item.date_of_update}/>
             </div>
           </div>
         );

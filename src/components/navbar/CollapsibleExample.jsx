@@ -6,8 +6,11 @@ import { Link } from 'react-router-dom';
 import Person2SharpIcon from '@mui/icons-material/Person2Sharp';
 import ModeNightOutlinedIcon from '@mui/icons-material/ModeNightOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+//import { getUserRole } from "../../UserService";
+import { useState } from 'react';
 
 function CollapsibleExample() {
+ 
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>

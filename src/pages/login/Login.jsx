@@ -1,54 +1,92 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie'; // Import js-cookie library
+import React, { useEffect, useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
+import { myGlobalVariable } from '../../constants';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [form, setForm] = useState({});
   const [errors, setError] = useState({});
+  const navigate = useNavigate();
 
   const setField = (field, value) => {
     setForm({
       ...form,
-      [field]: value
+      [field]: value,
     });
 
     if (!!errors[field]) {
       setError({
         ...errors,
-        [field]: null
+        [field]: null,
       });
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log(form);
+      try {
+        const response = await axios.post(`http://localhost:8100/login`, form);
+        const data = response.data;
+        console.log(response);
+        if (data.status === 'success') {
+          const sessionId = data.username; // Assuming the server returns the sessionId in the 'username' field 
+         const expirationDate = new Date(Date.now() + 5 * 60 * 1000); // Set expiration to 5 minutes from now
+          Cookies.set('sessionId', sessionId, { expires: expirationDate }); // Save the sessionId in a cookie named 'sessionId' with expiration time
+          navigate('/');
+          // TODO: Store user authentication token in local storage or session storage
+        } else {
+          // Authentication failed
+          console.log('Authentication failed:', data.message);
+          if (data.message =="Invalid username [user not exist]") {
+              setError({
+                  ...errors,
+                  username: data.message,
+                });
+          }
+          else { 
+               setError({
+            ...errors,
+            pass: data.message,
+          });
+          }
+       
+
+        }
+      } catch (error) {
+      console.log('Error authenticating user:', error.message);
+      setError({
+        ...errors,
+        pass: 'Network Error: Unable to reach the server',
+      });
+      }
     }
   };
 
   const validateForm = () => {
     let isValid = true;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-  
-    // Validate email
-    if (!form.email || !emailRegex.test(form.email)) {
+
+    // Validate username
+    if (!form.username) {
       setError({
         ...errors,
-        email: 'Please enter a valid email address'
+        username: 'Please enter a username',
       });
       isValid = false;
     }
-  
+
     // Validate password
     if (!form.pass || !passRegex.test(form.pass)) {
       setError({
         ...errors,
-        pass: "Password must be at least 8 characters with uppercase, lowercase, digit, and special character"
+        pass: 'Password must be at least 8 characters with uppercase, lowercase, digit, and special character',
       });
       isValid = false;
     }
-  
+
     return isValid;
   };
 
@@ -61,27 +99,32 @@ const Login = () => {
             <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
           </div>
 
-          <Form.Group className="mb-4" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email"
+          <Form.Group className="mb-4" controlId="formBasicUsername">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter username"
               required
-              value={form.email || ''}
-              onChange={(e) => setField('email', e.target.value)}
-              isInvalid={!!errors.email}
+              value={form.username || ''}
+              onChange={(e) => setField('username', e.target.value)}
+              isInvalid={!!errors.username}
             />
-            <Form.Control.Feedback type='invalid' style={{ maxWidth: '300px' }}>
-              {errors.email}
+            <Form.Control.Feedback type="invalid" style={{ maxWidth: '300px' }}>
+              {errors.username}
             </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-4" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" required placeholder="Password"
+            <Form.Control
+              type="password"
+              required
+              placeholder="Password"
               value={form.pass || ''}
               onChange={(e) => setField('pass', e.target.value)}
               isInvalid={!!errors.pass}
             />
-            <Form.Control.Feedback type='invalid' style={{ maxWidth: '300px' }} >
+            <Form.Control.Feedback type="invalid" style={{ maxWidth: '300px' }}>
               {errors.pass}
             </Form.Control.Feedback>
           </Form.Group>

@@ -35,6 +35,13 @@ const columns = [
     type: 'number',
     required: true
   },
+     {
+    field: 'image',
+    headerName: 'Image',
+    type: 'image',
+    required: true
+  }
+    
 ];
     
 const Product = () => {
