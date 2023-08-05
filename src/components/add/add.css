@@ -5,6 +5,7 @@
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.724);
+  color: white !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,7 +22,7 @@
 .add .modal1 h1 {
   margin-bottom: 40px;
   font-size: 24px;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .add .modal1 .close {
@@ -40,6 +41,7 @@
 }
 
 .add .modal1 form .item {
+  color: white !important;
   width: 40%;
   display: flex;
   flex-direction: column;
@@ -49,7 +51,7 @@
 
 .add .modal1 form .item label {
   font-size: 14px;
-  color: white;
+  color: white !important;
 }
 
 .add .modal1 form .item input {

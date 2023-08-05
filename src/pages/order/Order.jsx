@@ -1,15 +1,46 @@
-import React,{ useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 import Datatable from '../../components/dataTable/DataTable'
 import Add from "../../components/add/Add";
+import AddOrder from "../../components/add/AddOrder";
+const Order = () => {
+  const [products, setProducts] = useState([]);
+  const [open, setOpen] = useState(false);
+
+useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:8100/products');
+      setProducts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchProducts();
+}, []);
+
+
+
+
+
+
+  const handleAddUserClick = () => {
+    setOpen(true);
+  };
+
+  const handleCloseAddUser = () => {
+    setOpen(false);
+  };
 
 
 const columns = [
-  {
-    field: 'product_name',
-    headerName: 'product_name',
-    type: 'text',
-    required: true
-  },
+    {
+      field: 'product_name',
+      headerName: 'product_name',
+      type: 'text',
+      required: true
+    },
     {
     field: 'kind_of_product',
     headerName: 'kind_of_product',
@@ -48,25 +79,30 @@ const columns = [
     type: 'number',
     required: true
   },
+     {
+    field: 'total_price',
+    headerName: 'total_price',
+    type: 'number',
+       required: true,
+       disable: true,
+  },
+    {
+    field: 'fullname',
+    headerName: 'fullname',
+    type: 'text',
+    required: true
+  },
+       {
+    field: 'phone',
+    headerName: 'phone',
+    type: 'text',
+    required: true
+  },
 
 ];
 
 
-const Order = () => {
-  const [open, setOpen] = useState(false);
-
-  const handleAddUserClick = () => {
-    console.log("object");
-    setOpen(true);
-  };
-
-  const handleCloseAddUser = () => {
-    console.log("not object");
-    setOpen(false);
-  };
-
-
-
+ console.log(products);
   return (
     <div className='products container'>
       <div className="info center">
@@ -74,7 +110,7 @@ const Order = () => {
         <button className='btn btn-primary' onClick={handleAddUserClick}> Add new order </button>
       </div>
       <Datatable first='orders'/>
-     {open &&<Add name= 'Order' columns={columns} setOpen={setOpen} />}
+     {open &&<AddOrder name= 'Order' columns={columns} setOpen={setOpen} />}
     </div>
   )
 }

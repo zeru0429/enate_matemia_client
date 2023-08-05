@@ -37,7 +37,6 @@ export default function DataTable({ first, name }) {
       };
 
       const onClickDelete = () => {
-        // console.log(params.row);
        handleDelete(`${params.row.id}`,`${params.row.product_name}`);
       };
 
@@ -89,18 +88,19 @@ export default function DataTable({ first, name }) {
     content: () => componentRef.current,
   });
 
-  const handleDelete = (idnum, name) => {
-    axios
-      .delete(`${myGlobalVariable}delete${first}/${idnum}${name}`)
-      .then((response) => {
-        console.log(response.data);
-        setDeleted(true); // update the deleted state
-        setReload(true); // trigger the re-render
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+const handleDelete = (idnum, name) => {
+  //console.log(`http://localhost:8100/deleteproducts/${idnum}/${name}`);
+  axios
+    .delete(`http://localhost:8100/deleteproducts/${idnum}:${name}`)
+    .then((response) => {
+      console.log(response);
+      setDeleted(true); // update the deleted state
+      setReload(true); // trigger the re-render
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
   useEffect(() => {
     if (deleted) {
