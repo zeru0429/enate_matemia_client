@@ -30,6 +30,8 @@ const setField = (field, value) => {
   };
 
   const handleSubmit = (e) => {
+    console.log(form);
+    console.log(`http://localhost:8100/addNew${props.name}/`);
     e.preventDefault();
     if (validateForm()) {  
       
@@ -37,8 +39,8 @@ const setField = (field, value) => {
         .post(`http://localhost:8100/addNew${props.name}/`, form)
         .then((response) => {
           
-          { props.setOpen(false) }
-          <AlertExample message={`succesfully Added `} variant='success' />
+          // { props.setOpen(false) }
+          // <AlertExample message={`succesfully Added `} variant='success' />
           console.log(response.data);
         })
         .catch((error) => {

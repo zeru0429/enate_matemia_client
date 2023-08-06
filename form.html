@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User Form</title>
+</head>
+
+<body>
+    <form action="http://localhost:8100/addNewUser/" method="post" enctype="multipart/form-data">
+        <label for="f_name">First Name:</label>
+        <input type="text" id="f_name" name="f_name" required><br><br>
+
+        <label for="m_name">Middle Name:</label>
+        <input type="text" id="m_name" name="m_name" required><br><br>
+
+        <label for="l_name">Last Name:</label>
+        <input type="text" id="l_name" name="l_name" required><br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required><br><br>
+
+        <label for="role">Role:</label>
+        <select id="role" name="role" required>
+            <option value="guest">Guest</option>
+            <option value="super">Super</option>
+            <option value="casher">Casher</option>
+            <option value="operator">Operator</option>
+        </select><br><br>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="c_password">Confirm Password:</label>
+        <input type="password" id="c_password" name="c_password" required><br><br>
+
+        <label for="profile">Profile Picture:</label>
+        <input type="file" id="profile" name="profile" accept="image/*" required><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>
