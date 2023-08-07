@@ -26,12 +26,13 @@ const Add = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {  
-      console.log(form);
+      //console.log(form);
       const formData = new FormData();
       Object.entries(form).forEach(([key, value]) => {
         formData.append(key, value);
       });
       console.log(formData);
+     // console.log(`http://localhost:8100/addNew${props.name}/`);
       axios
         .post(`http://localhost:8100/addNew${props.name}/`, formData)
         .then((response) => {

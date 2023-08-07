@@ -1,8 +1,81 @@
 import React, { useEffect, useState } from 'react';
 import './profile.css'
+import Add from "../../components/add/Add";
+
+const columns = [
+    {
+    field: 'curent_password',
+    headerName: 'curent_password',
+    type: 'password',
+    required: true
+  },
+  {
+    field: 'password',
+    headerName: 'New_password',
+    type: 'password',
+    required: true
+  },
+  {
+    field: 'c_password',
+    headerName: 'confirm password',
+    type: 'password',
+    required: true
+  },
+      
+
+];
+const columns2 = [
+  {
+    field: 'f_name',
+    headerName: 'First Name',
+    type: 'text',
+    required: true
+  },
+  {
+    field: 'm_name',
+    headerName: 'Middle Name',
+    type: 'text',
+    required: true
+  },
+  {
+    field: 'l_name',
+    headerName: 'Last Name',
+    type: 'text',
+    required: true
+  },
+  {
+    field: 'phone',
+    headerName: 'Phone Number',
+    type: 'number',
+    required: true
+  },
+    {
+    field: 'profile',
+    headerName: 'Image',
+    type: 'image',
+    required: true
+  }
+
+];
+
+
 const Profile = () => {
   const [profileData, setProfileData] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
+  const handleChangeUpdateProfileClick = () => { 
+  setOpen2(true);
+  }
 
+  const handleChangePasswordClick = () => {
+    
+    setOpen(true);
+  };
+
+  const handleCloseAddUser = () => {
+    console.log("not object");
+    setOpen(false);
+  };
   useEffect(() => {
     // Simulating data fetching from a database
     const fetchData = async () => {
@@ -34,7 +107,10 @@ const Profile = () => {
         <p>Username: {profileData.username}</p>
         <p>Role: {profileData.role}</p>
         <p>Phone: {profileData.phone}</p>
-        <button className='btn btn-warning'>Change Password</button>
+        <button className='btn btn-warning' onClick={handleChangePasswordClick}>Change Password</button>
+        <button className='btn btn-primary' onClick={handleChangeUpdateProfileClick}>Update Profile</button>
+        {open &&<Add name= 'change_password' columns={columns} setOpen={setOpen} />} 
+       {open2 &&<Add name= 'updateProfile' columns={columns2} setOpen={setOpen2} />}
       </div>
     </div>
   );
