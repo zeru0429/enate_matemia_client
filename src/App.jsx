@@ -19,6 +19,7 @@ import Fo4 from './pages/fo4/Fo4 '
 import SinglePage from './components/singlePage/SinglePage';
 import Operator from './pages/operator/Operator';
 import Notcompleted from './pages/operator/Notcompleted';
+import Profile from './pages/profile/Profile'
 function App() {
   return (
     <div className="app">
@@ -34,6 +35,7 @@ function App() {
         <Route path='/completed-oreder' element={<Operator />} />
         <Route path='/not-completed-oreder' element={<Notcompleted />} />
         <Route path='/single' element={<SinglePage />} />
+         <Route path='/profile' element={<Profile />} />
         <Route path='*' element={<Fo4 />} />
       </Routes>
       <Footer />

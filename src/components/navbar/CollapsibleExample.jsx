@@ -57,12 +57,12 @@ function CollapsibleExample() {
             </Nav.Link>
           </Nav>
           <NavDropdown title={<Person2SharpIcon />} id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Setting</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Status</NavDropdown.Item>
-              <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4" onClick={ handlelogout} >Logout</NavDropdown.Item>
-          </NavDropdown>
+          <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/status">Status</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="#action/3.4" onClick={ handlelogout} >Logout</NavDropdown.Item>
+         </NavDropdown>
         </Navbar.Collapse>
       </Container>
     </Navbar>
