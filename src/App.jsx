@@ -24,19 +24,19 @@ function App() {
   return (
     <div className="app">
      
-      <Navbar />
+      
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} /> 
-        <Route path='/order' element={<Order />} />
-        <Route path='/price' element={<Price />} />
-        <Route path='/user' element={<User />} />
-        <Route path='/product' element={<Product />} />
-        <Route path='/completed-oreder' element={<Operator />} />
-        <Route path='/not-completed-oreder' element={<Notcompleted />} />
-        <Route path='/single' element={<SinglePage />} />
-         <Route path='/profile' element={<Profile />} />
-        <Route path='*' element={<Fo4 />} />
+        <Route path='/' element={<><Navbar /><Home /></>} />
+        <Route path='/login' element={<><Login /></>} /> 
+        <Route path='/order' element={<><Navbar /><Order /></>} />
+        <Route path='/price' element={<><Navbar /><Price /></>} />
+        <Route path='/user' element={<><Navbar /><User /></>} />
+        <Route path='/product' element={<><Navbar /><Product /></>} />
+        <Route path='/completed-oreder' element={<><Navbar /><Operator /></>} />
+        <Route path='/not-completed-oreder' element={<><Navbar /><Notcompleted /></>} />
+        <Route path='/single' element={<><Navbar /><SinglePage /></>} />
+         <Route path='/profile' element={<><Navbar /><Profile /></>} />
+        <Route path='*' element={<><Navbar /><Fo4 /></>} />
       </Routes>
       <Footer />
 
