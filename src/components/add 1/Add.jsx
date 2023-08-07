@@ -8,12 +8,18 @@ const Add = (props) => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
-  const setField = (field, value) => {
-    setForm({
-      ...form,
-      [field]: value
-    });
-  };
+const setField = (field, value) => {
+  // Check if the field is disabled
+  const disabled = props.columns.find((column) => column.field === field)?.disable;
+  if (disabled) {
+    return;
+  }
+
+  setForm({
+    ...form,
+    [field]: value
+  });
+};
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -21,23 +27,20 @@ const Add = (props) => {
       ...form,
       profile: file
     });
-  };  
+  };
 
   const handleSubmit = (e) => {
+    console.log(form);
+    console.log(`http://localhost:8100/addNew${props.name}/`);
     e.preventDefault();
     if (validateForm()) {  
-      console.log(form);
-      const formData = new FormData();
-      Object.entries(form).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
-      console.log(formData);
+      
       axios
-        .post(`http://localhost:8100/addNew${props.name}/`, formData)
+        .post(`http://localhost:8100/addNew${props.name}/`, form)
         .then((response) => {
           
-          { props.setOpen(false) }
-          <AlertExample message={`succesfully Added `} variant='success' />
+          // { props.setOpen(false) }
+          // <AlertExample message={`succesfully Added `} variant='success' />
           console.log(response.data);
         })
         .catch((error) => {
@@ -101,6 +104,7 @@ const Add = (props) => {
                     onChange={(e) => setField(column.field, e.target.value)}
                     isInvalid={!!errors[column.field]}
                     required={column.required}
+                    disabled={column.disable}
                   />
                 )}
                 {errors[column.field] && (

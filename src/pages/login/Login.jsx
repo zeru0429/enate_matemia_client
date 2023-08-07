@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [form, setForm] = useState({});
   const [errors, setError] = useState({});
+  const [auth, setAuth] = useState(false);
+   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const setField = (field, value) => {
@@ -28,16 +30,19 @@ const Login = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
+        axios.defaults.withCredentials = true;
         const response = await axios.post(`http://localhost:8100/login`, form);
         const data = response.data;
         console.log(response);
         if (data.status === 'success') {
-          const sessionId = data.username; // Assuming the server returns the sessionId in the 'username' field 
-         const expirationDate = new Date(Date.now() + 5 * 60 * 1000); // Set expiration to 5 minutes from now
-          Cookies.set('sessionId', sessionId, { expires: expirationDate }); // Save the sessionId in a cookie named 'sessionId' with expiration time
+          console.log(data);
+         // const sessionId = data.username; // Assuming the server returns the sessionId in the 'username' field 
+         //const expirationDate = new Date(Date.now() + 5 * 60 * 1000); // Set expiration to 5 minutes from now
+        //  Cookies.set('sessionId', sessionId, { expires: expirationDate }); // Save the sessionId in a cookie named 'sessionId' with expiration time
           navigate('/');
           // TODO: Store user authentication token in local storage or session storage
         } else {
+          alert(data.message)
           // Authentication failed
           console.log('Authentication failed:', data.message);
           if (data.message =="Invalid username [user not exist]") {
@@ -89,6 +94,32 @@ const Login = () => {
 
     return isValid;
   };
+
+  useEffect(() => {
+        axios.defaults.withCredentials = true;
+    const checkLoginStatus = async () => {
+      axios.get('http://localhost:8100/logincheck')
+        .then((response) => { 
+          if (response.data.status == 'success') {
+            setAuth(true)
+             navigate('/')
+          }
+          else { 
+             setAuth(false)
+            setMessage(response.data.message)
+          
+          }
+        })
+    };
+
+    checkLoginStatus();
+  }, [navigate]);
+
+
+
+
+
+
 
   return (
     <Container style={{ maxWidth: '50vh' }} className="d-flex mt-3 justify-content-center align-items-center vh-50">

@@ -8,11 +8,6 @@ import ChartBox  from '../../components/chartBox/ChartBox'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
 
-// const axiosInstance = axios.create({
-//   baseURL: 'http://localhost:8100/', // Adjust the URL accordingly
-//   withCredentials: true,
-// });
-
 
 const datachart={
   color: "#8884d8",
@@ -60,47 +55,29 @@ const chartBoxUser = {
   ],
 };
 const Home = () => {
-  const [name, setName] =useState('')
+  const [name, setName] = useState('');
+  const [auth, setAuth] = useState(false);
+   const [message, setMessage] = useState('');
   const navigate = useNavigate();
   
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axiosInstance.get('session');
-  //       console.log(response.data);
-
-  //       if (response.data.valid) {
-  //         setName(response.data.username);
-  //       } else {
-  //         // Handle the case when the session is not valid
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
+  axios.defaults.withCredentials = true;
    useEffect(() => {
     const checkLoginStatus = async () => {
-      try {
-        const response = await axios.get('http://localhost:8100/checkLoginStatus');
-        const data = response.data;
-        console.log(response);
-        if (data.status === 'success') {
-          // User is already logged in, redirect to the homepage
-          navigate('/login');
-        } else { 
-          navigate('/login');
-        }
-      } catch (error) {
-        console.log('Error checking login status:', error.message);
-      }
+      axios.get('http://localhost:8100/logincheck')
+        .then((response) => { 
+          if (response.data.status == 'success') {
+            setAuth(true)
+            setName(response.data.username)
+          }
+          else { 
+            setMessage(response.data.message)
+            navigate('/login')
+          }
+        })
     };
 
     checkLoginStatus();
-  }, [navigate]);
+  }, []);
 
 
   return (
@@ -109,7 +86,7 @@ const Home = () => {
       <div className="box box1">
           <PieChartBox datachart={datachart} />
         </div>
-        <h1>{name}</h1>
+        <h1>my name is{name}</h1>
         <div className="box box2">
           <BarChartBox
             title="Sample Bar Chart"

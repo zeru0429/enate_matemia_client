@@ -2,15 +2,39 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Person2SharpIcon from '@mui/icons-material/Person2Sharp';
 import ModeNightOutlinedIcon from '@mui/icons-material/ModeNightOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 //import { getUserRole } from "../../UserService";
 import { useState } from 'react';
+import axios from 'axios';
+
 
 function CollapsibleExample() {
- 
+    const navigate = useNavigate();
+  
+  const handlelogout = () => { 
+    console.log("logout");
+     axios.defaults.withCredentials = true;
+    axios.get('http://localhost:8100/logout')
+      .then((response) => { 
+        if (response.data.status == 'success') { 
+          navigate('/login')
+          //location.reload(true);
+        }
+        else {
+          alert("error")
+        }
+        
+          
+
+      }).catch((error) => { 
+        console.log(error);
+      })
+  }
+
+
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
@@ -37,7 +61,7 @@ function CollapsibleExample() {
               <NavDropdown.Item href="#action/3.2">Setting</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Status</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.4" onClick={ handlelogout} >Logout</NavDropdown.Item>
           </NavDropdown>
         </Navbar.Collapse>
       </Container>

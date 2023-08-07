@@ -28,12 +28,6 @@ const columns = [
     required: true
   },
   {
-    field: 'profile',
-    headerName: 'Profile picture',
-    type: 'file',
-    required: true
-  },
-  {
     field: 'role',
     headerName: 'Role',
     type: 'select',
@@ -64,6 +58,12 @@ const columns = [
     type: 'password',
     required: true
   },
+      {
+    field: 'profile',
+    headerName: 'Image',
+    type: 'image',
+    required: true
+  }
 
 ];
 
