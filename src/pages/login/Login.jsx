@@ -102,9 +102,11 @@ const Login = () => {
         .then((response) => { 
           if (response.data.status == 'success') {
             setAuth(true)
+            
             dispatch({
             type: "SET_USER",
-            user: response.data.username
+              user: response.data.username,
+              role: response.data.role
         });
              navigate('/')
           }

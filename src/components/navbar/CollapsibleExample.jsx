@@ -13,7 +13,7 @@ import { useStateValue } from "../../utility/stateprovider";
 
 function CollapsibleExample() {
   const navigate = useNavigate();
-   const [{user}, dispatch] = useStateValue();
+   const [{user,role}, dispatch] = useStateValue();
   useEffect(() => { 
     if (!user) { 
       navigate('/login') 
@@ -60,7 +60,7 @@ function CollapsibleExample() {
             <Nav.Link as={Link} to="/order">Orders</Nav.Link>
             <Nav.Link as={Link} to="/not-completed-oreder">Not Completed Order</Nav.Link>
             <Nav.Link as={Link} to="/completed-oreder">Completed Order</Nav.Link>
-            <Nav.Link as={Link} to="/user">Users</Nav.Link>
+            {(!role) &&<Nav.Link as={Link} to="/user">Users</Nav.Link>}
           </Nav>
           <Nav>
             <Nav.Link eventKey={2} href="#memes">
