@@ -7,19 +7,31 @@ import Person2SharpIcon from '@mui/icons-material/Person2Sharp';
 import ModeNightOutlinedIcon from '@mui/icons-material/ModeNightOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 //import { getUserRole } from "../../UserService";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { useStateValue } from "../../utility/stateprovider";
 
 function CollapsibleExample() {
-    const navigate = useNavigate();
-  
+  const navigate = useNavigate();
+   const [{user}, dispatch] = useStateValue();
+  useEffect(() => { 
+    if (!user) { 
+      navigate('/login') 
+    }
+    // !user ? navigate('/login') : user.username
+  },[])
+
+
   const handlelogout = () => { 
     console.log("logout");
      axios.defaults.withCredentials = true;
     axios.get('http://localhost:8100/logout')
       .then((response) => { 
         if (response.data.status == 'success') { 
+          dispatch({
+            type: "SET_USER",
+            user: null,
+        });
           navigate('/login')
           //location.reload(true);
         }

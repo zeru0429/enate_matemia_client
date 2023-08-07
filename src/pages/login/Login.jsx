@@ -4,13 +4,15 @@ import React, { useEffect, useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { myGlobalVariable } from '../../constants';
 import { useNavigate } from 'react-router-dom';
-
+import { useStateValue } from "../../utility/stateprovider";
 const Login = () => {
+  const [{user }, dispatch] = useStateValue();
   const [form, setForm] = useState({});
   const [errors, setError] = useState({});
   const [auth, setAuth] = useState(false);
-   const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
+   ;
 
   const setField = (field, value) => {
     setForm({
@@ -36,9 +38,7 @@ const Login = () => {
         console.log(response);
         if (data.status === 'success') {
           console.log(data);
-         // const sessionId = data.username; // Assuming the server returns the sessionId in the 'username' field 
-         //const expirationDate = new Date(Date.now() + 5 * 60 * 1000); // Set expiration to 5 minutes from now
-        //  Cookies.set('sessionId', sessionId, { expires: expirationDate }); // Save the sessionId in a cookie named 'sessionId' with expiration time
+          
           navigate('/');
           // TODO: Store user authentication token in local storage or session storage
         } else {
@@ -96,16 +96,20 @@ const Login = () => {
   };
 
   useEffect(() => {
-        axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = true;
     const checkLoginStatus = async () => {
       axios.get('http://localhost:8100/logincheck')
         .then((response) => { 
           if (response.data.status == 'success') {
             setAuth(true)
+            dispatch({
+            type: "SET_USER",
+            user: response.data.username
+        });
              navigate('/')
           }
           else { 
-             setAuth(false)
+             setAuth(false) 
             setMessage(response.data.message)
           
           }

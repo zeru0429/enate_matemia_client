@@ -7,7 +7,7 @@ import BigChartBox from "../../components/bigChartBox/BigChartBox";
 import ChartBox  from '../../components/chartBox/ChartBox'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
-
+import { useStateValue } from "../../utility/stateprovider";
 
 const datachart={
   color: "#8884d8",
@@ -57,28 +57,18 @@ const chartBoxUser = {
 const Home = () => {
   const [name, setName] = useState('');
   const [auth, setAuth] = useState(false);
-   const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  
-  axios.defaults.withCredentials = true;
-   useEffect(() => {
-    const checkLoginStatus = async () => {
-      axios.get('http://localhost:8100/logincheck')
-        .then((response) => { 
-          if (response.data.status == 'success') {
-            setAuth(true)
-            setName(response.data.username)
-          }
-          else { 
-            setMessage(response.data.message)
-            navigate('/login')
-          }
-        })
-    };
+  const [{ user }, dispatch] = useStateValue();
+  useEffect(() => {
+    if (!user) {
+      navigate('/login')
+    }
+    else { 
+      setName(user)
+    }
 
-    checkLoginStatus();
-  }, []);
-
+  },[])
 
   return (
     <div className="start">
