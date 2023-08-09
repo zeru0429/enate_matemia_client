@@ -11,6 +11,7 @@ import { redirect } from 'react-router-dom';
 import Add from "../../components/add/Add";
 import Show from "../../components/add/Show";
 import { myGlobalVariable } from '../../constants';
+import AlertComponent from '../alert/AlertComponent';
 export default function DataTable({ first, name }) {
   const [reload, setReload] = useState(false);
   const [open, setOpen] = useState(false);
@@ -19,7 +20,7 @@ export default function DataTable({ first, name }) {
   const componentRef = useRef(null);
   const [deleted, setDeleted] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null); // State to hold the single-clicked row data
-
+  let [alertdata, setAlertdata] = useState({});
   useEffect(() => {
     fetchData();
   }, []);
@@ -37,7 +38,7 @@ export default function DataTable({ first, name }) {
       };
 
       const onClickDelete = () => {
-       handleDelete(`${params.row.id}`,`${params.row.product_name}`);
+       handleDelete(`${params.row.id}`);
       };
 
       return (
@@ -88,19 +89,29 @@ export default function DataTable({ first, name }) {
     content: () => componentRef.current,
   });
 
-const handleDelete = (idnum, name) => {
-  //console.log(`http://localhost:8100/deleteproducts/${idnum}/${name}`);
-  axios
-    .delete(`http://localhost:8100/deleteproducts/${idnum}:${name}`)
-    .then((response) => {
-      console.log(response);
-      setDeleted(true); // update the deleted state
-      setReload(true); // trigger the re-render
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
+  const handleDelete = (id) => {
+  // console.log(`http://localhost:8100/delete${first}/${id}`);
+    axios
+      .delete(`http://localhost:8100/delete${first}/${id}`)
+      .then((response) => {
+        alert(response.data)
+
+        // setAlertdata = {
+        //   message: response.data,
+        //   color: 'success'
+        // }
+        
+         
+      })  
+      .catch((error) => {
+        alert(error)
+        //   setAlertdata = {
+        //   message: error,
+        //   color: 'success'
+        // }
+        console.error(error);
+      });
+  };
 
   useEffect(() => {
     if (deleted) {
@@ -139,6 +150,7 @@ const handleDelete = (idnum, name) => {
   };
 
   return (
+    <>
     <Container>
       <div ref={componentRef}>
         <DataGrid
@@ -166,6 +178,8 @@ const handleDelete = (idnum, name) => {
           <Show name={name} columns={columns} setOpen={setOpen} rowData={selectedRowData} />
         )}
       </div>
-    </Container>
+     
+      </Container>
+    </>
   );
 }
