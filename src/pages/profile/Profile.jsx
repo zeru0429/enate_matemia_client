@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './profile.css'
 import Add from "../../components/add/Add";
+import { useStateValue } from "../../utility/stateprovider";
+
 
 const columns = [
     {
@@ -60,6 +62,7 @@ const columns2 = [
 
 
 const Profile = () => {
+   const [{ user ,role}, dispatch] = useStateValue();
   const [profileData, setProfileData] = useState(null);
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -81,7 +84,7 @@ const Profile = () => {
     const fetchData = async () => {
       try {
         // Make an API request to fetch the profile data
-        const response = await fetch('http://localhost:8100/profile/abem');
+        const response = await fetch(`http://localhost:8100/profile/${user}`);
         const data = await response.json();
         setProfileData(data[0]);
         // console.log(data[0]);

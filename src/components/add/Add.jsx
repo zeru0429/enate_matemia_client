@@ -9,9 +9,10 @@ const Add = (props) => {
   const [errors, setErrors] = useState({});
 
   const setField = (field, value) => {
+    console.log(value);
     setForm({
       ...form,
-      [field]: value
+      [field]: value,
     });
   };
 
@@ -31,8 +32,8 @@ const Add = (props) => {
       Object.entries(form).forEach(([key, value]) => {
         formData.append(key, value);
       });
-      console.log(formData);
-     // console.log(`http://localhost:8100/addNew${props.name}/`);
+      console.log(formData);  
+      console.log(`http://localhost:8100/addNew${props.name}/`);
       axios
         .post(`http://localhost:8100/addNew${props.name}/`, formData)
         .then((response) => {

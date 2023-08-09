@@ -28,6 +28,7 @@ export default function DataTable({ first, name }) {
 
   const fetchData = async () => {
     try {
+      console.log(`${myGlobalVariable}${first}`);
       const response = await axios.get(`${myGlobalVariable}${first}`);
       setUser(response.data);
       setFilteredUser(response.data);
@@ -139,36 +140,46 @@ export default function DataTable({ first, name }) {
   };
 
   const handleUpdateStatus = (idnum, name) => {
-    const url = `${myGlobalVariable}update${first}/${idnum}`;
+    // const url = `${myGlobalVariable}update${first}:${idnum}`;
+    const url = `http://localhost:8100/update-not-completed-order/`;
     const data = { status: 'completed' };
-
-    axios.put(url, data)
-      .then((response) => {
-        if (response.status != 200) { 
-        // update the filteredUser state by setting the status of the completed task to "completed"
-        setFilteredUser(prevFilteredUser => prevFilteredUser.map((row, index) => {
-          if (row.id === idnum && row.product_name === name) {
-            return {
-              ...row,
-              status: 'completed',
-            };
-          } else if (index === 0 && row.status === 'ordered') {
-            // set the status of the first row with status "ordered" to "pending"
-            return {
-              ...row,
-              status: 'pending',
-            };
-          } else {
-            return row;
-          }
-        }));
+    console.log(url);
+    axios.post(url, {
+  status: data // or whatever data you need to send
+})
+  .then((response) => {
+    console.log(response.data); // handle the response data
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+    // axios.post(url, data)
+    //   .then((response) => {
+    //     if (response.status != 200) { 
+    //     // update the filteredUser state by setting the status of the completed task to "completed"
+    //     setFilteredUser(prevFilteredUser => prevFilteredUser.map((row, index) => {
+    //       if (row.id === idnum && row.product_name === name) {
+    //         return {
+    //           ...row,
+    //           status: 'completed',
+    //         };
+    //       } else if (index === 0 && row.status === 'ordered') {
+    //         // set the status of the first row with status "ordered" to "pending"
+    //         return {
+    //           ...row,
+    //           status: 'pending',
+    //         };
+    //       } else {
+    //         return row;
+    //       }
+    //     }));
       
-        }
+    //     }
         
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
     
     
   };

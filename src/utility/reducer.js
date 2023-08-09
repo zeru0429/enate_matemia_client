@@ -10,6 +10,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.user,
+        role: action.role,
       };
     default:
       return state;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Datatable from '../../components/dataTable/DataTable'
-import Add from "../../components/add/Add";
-import AddOrder from "../../components/add/AddOrder";
+// import Add from "../../components/add/Add";
+import MyForm from "../../components/addorder/MyForm";
 const Order = () => {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
@@ -21,7 +21,7 @@ useEffect(() => {
 }, []);
 
 
-
+console.log(products);
 
 
 
@@ -34,7 +34,8 @@ useEffect(() => {
   };
 
 
-const columns = [
+  const columns = [
+  
     {
       field: 'product_name',
       headerName: 'product_name',
@@ -110,7 +111,7 @@ const columns = [
         <button className='btn btn-primary' onClick={handleAddUserClick}> Add new order </button>
       </div>
       <Datatable first='orders'/>
-     {open &&<AddOrder name= 'Order' columns={columns} setOpen={setOpen} />}
+     {open &&<MyForm name= 'Order' products={products} setOpen={setOpen} />}
     </div>
   )
 }

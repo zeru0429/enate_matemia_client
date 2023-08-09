@@ -59,7 +59,7 @@ const Home = () => {
   const [auth, setAuth] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user ,role}, dispatch] = useStateValue();
   useEffect(() => {
     if (!user) {
       navigate('/login')
@@ -69,7 +69,8 @@ const Home = () => {
     }
 
   },[])
-
+  console.log(user);
+  console.log(role);
   return (
     <div className="start">
     <div className="home">

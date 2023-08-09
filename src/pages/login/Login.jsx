@@ -6,7 +6,7 @@ import { myGlobalVariable } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import { useStateValue } from "../../utility/stateprovider";
 const Login = () => {
-  const [{user }, dispatch] = useStateValue();
+  const [{user,role }, dispatch] = useStateValue();
   const [form, setForm] = useState({});
   const [errors, setError] = useState({});
   const [auth, setAuth] = useState(false);

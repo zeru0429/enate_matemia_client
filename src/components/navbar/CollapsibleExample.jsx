@@ -55,20 +55,22 @@ function CollapsibleExample() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/product">Product</Nav.Link>
+            {(role =='super' || role =='admin'  )&&<Nav.Link as={Link} to="/product">Product</Nav.Link>}
             <Nav.Link as={Link} to="/price">Pricing</Nav.Link>
-            <Nav.Link as={Link} to="/order">Orders</Nav.Link>
-            <Nav.Link as={Link} to="/not-completed-oreder">Not Completed Order</Nav.Link>
-            <Nav.Link as={Link} to="/completed-oreder">Completed Order</Nav.Link>
-            {(!role) &&<Nav.Link as={Link} to="/user">Users</Nav.Link>}
+            {(role =='super' || role =='casher'  )&&<Nav.Link as={Link} to="/order">Orders</Nav.Link>}
+            {(role =='super' || role =='operator'  )&&<Nav.Link as={Link} to="/not-completed-oreder">Not Completed Order</Nav.Link>}
+            {(role =='super' || role =='operator'  )&&<Nav.Link as={Link} to="/completed-oreder">Completed Order</Nav.Link>}
+            {(role =='super' || role =='admin'  )&&<Nav.Link as={Link} to="/user">Users</Nav.Link>}
           </Nav>
           <Nav>
             <Nav.Link eventKey={2} href="#memes">
-              <ModeNightOutlinedIcon />
               <LightModeOutlinedIcon />
+              <ModeNightOutlinedIcon />
+              
             </Nav.Link>
           </Nav>
-          <NavDropdown title={<Person2SharpIcon />} id="collasible-nav-dropdown">
+           {user}
+          <NavDropdown title={<Person2SharpIcon />}  id="collasible-nav-dropdown">
           <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/status">Status</NavDropdown.Item>
