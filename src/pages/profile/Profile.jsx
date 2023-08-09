@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './profile.css'
-import Add from "../../components/add/Add";
+import Add from "./Add";
 import { useStateValue } from "../../utility/stateprovider";
 
 
