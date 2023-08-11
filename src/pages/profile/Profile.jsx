@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './profile.css'
 import Add from "./Add";
 import { useStateValue } from "../../utility/stateprovider";
-
+import { imageserver, server } from '../../constants';
 
 const columns = [
     {
@@ -84,7 +84,7 @@ const Profile = () => {
     const fetchData = async () => {
       try {
         // Make an API request to fetch the profile data
-        const response = await fetch(`http://localhost:8100/profile/${user}`);
+        const response = await fetch(`${server}profile/${user}`);
         const data = await response.json();
         setProfileData(data[0]);
         // console.log(data[0]);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './add.css';
 import { Form, Button } from 'react-bootstrap';
-import { myGlobalVariable } from '../../constants';
+import { imageserver,server } from '../../constants';
 import { useStateValue } from "../../utility/stateprovider";
 
 const Add = (props) => {
@@ -21,7 +21,7 @@ const Add = (props) => {
     if (validateForm()) {
       console.log(form);
       axios
-        .post(`http://localhost:8100/addNew${props.name}/`, [form,user,role])
+        .post(`${server}/addNew${props.name}/`, [form,user,role])
         .then((response) => {
           alert("pass word changed successfully ");
          // console.log(response);

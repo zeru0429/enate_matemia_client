@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './update.css';
 import { Form, Button } from 'react-bootstrap';
-import { myGlobalVariable } from '../../constants'
+import { server,imageserver } from '../../constants'
 const Update = (props) => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
@@ -19,7 +19,7 @@ const Update = (props) => {
     if (validateForm()) {
       console.log(form);
       axios
-        .post(`${myGlobalVariable}addNewUser/`, {
+        .post(`${server}addNewUser/`, {
           form
         })
         .then((response) => {

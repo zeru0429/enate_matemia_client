@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie'; // Import js-cookie library
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
-import { myGlobalVariable } from '../../constants';
+import { imageserver,server } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import { useStateValue } from "../../utility/stateprovider";
 const Login = () => {
@@ -33,7 +33,7 @@ const Login = () => {
     if (validateForm()) {
       try {
         axios.defaults.withCredentials = true;
-        const response = await axios.post(`http://localhost:8100/login`, form);
+        const response = await axios.post(`${server}login`, form);
         const data = response.data;
         console.log(response);
         if (data.status === 'success') {
@@ -72,25 +72,25 @@ const Login = () => {
 
   const validateForm = () => {
     let isValid = true;
-    const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    // const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 
-    // Validate username
-    if (!form.username) {
-      setError({
-        ...errors,
-        username: 'Please enter a username',
-      });
-      isValid = false;
-    }
+    // // Validate username
+    // if (!form.username) {
+    //   setError({
+    //     ...errors,
+    //     username: 'Please enter a username',
+    //   });
+    //   isValid = false;
+    // }
 
-    // Validate password
-    if (!form.pass || !passRegex.test(form.pass)) {
-      setError({
-        ...errors,
-        pass: 'Password must be at least 8 characters with uppercase, lowercase, digit, and special character',
-      });
-      isValid = false;
-    }
+    // // Validate password
+    // if (!form.pass || !passRegex.test(form.pass)) {
+    //   setError({
+    //     ...errors,
+    //     pass: 'Password must be at least 8 characters with uppercase, lowercase, digit, and special character',
+    //   });
+    //   isValid = false;
+    // }
 
     return isValid;
   };

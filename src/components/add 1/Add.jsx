@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './add.css';
 import { Form, Button } from 'react-bootstrap';
-import { myGlobalVariable } from '../../constants';
+import { imageserver,server} from '../../constants';
 import AlertExample from '../other/Alert'
 const Add = (props) => {
   const [form, setForm] = useState({});
@@ -30,13 +30,13 @@ const setField = (field, value) => {
   };
 
   const handleSubmit = (e) => {
-    console.log(form);
-    console.log(`http://localhost:8100/addNew${props.name}/`);
+    // console.log(form);
+    // console.log(`http://localhost:8100/addNew${props.name}/`);
     e.preventDefault();
     if (validateForm()) {  
       
       axios
-        .post(`http://localhost:8100/addNew${props.name}/`, form)
+        .post(`${server}addNew${props.name}/`, form)
         .then((response) => {
           
           // { props.setOpen(false) }

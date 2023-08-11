@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './product.css'
 import DataTable from "../../components/dataTable/DataTable";
 import Add from "../../components/add/Add";
+import AdminPanal from './AdminPanel'
+import AddOrder from './AddOrder'
 
 const columns = [
   {
@@ -67,7 +69,9 @@ const Product = () => {
       </div>
       
       <DataTable first="products" />
-      {open &&<Add name= 'products' columns={columns} setOpen={setOpen} />}
+      {open && <Add name='products' columns={columns} setOpen={setOpen} />}
+      {/* <AdminPanal />
+      <AddOrder /> */}
     </div>
   )
 }

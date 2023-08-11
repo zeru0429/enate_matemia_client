@@ -3,6 +3,7 @@ import axios from 'axios';
 import Datatable from '../../components/dataTable/DataTable'
 // import Add from "../../components/add/Add";
 import MyForm from "../../components/addorder/MyForm";
+import { imageserver,server} from '../../constants'
 const Order = () => {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
@@ -10,7 +11,7 @@ const Order = () => {
 useEffect(() => {
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:8100/products');
+      const response = await axios.get(`${server}products`);
       setProducts(response.data);
     } catch (error) {
       console.log(error);
@@ -21,7 +22,7 @@ useEffect(() => {
 }, []);
 
 
-console.log(products);
+//console.log(products);
 
 
 
@@ -103,7 +104,7 @@ console.log(products);
 ];
 
 
- console.log(products);
+ //console.log(products);
   return (
     <div className='products container'>
       <div className="info center">

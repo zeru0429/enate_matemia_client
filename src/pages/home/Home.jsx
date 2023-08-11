@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './home.css'
-import { myGlobalVariable} from '../../constants'
+import { imageserver,server} from '../../constants'
 import PieChartBox from '../../components/pieCartBox/PieChartBox'
 import BarChartBox from './BarChartBox'
 import BigChartBox from "../../components/bigChartBox/BigChartBox";
@@ -69,8 +69,8 @@ const Home = () => {
     }
 
   },[])
-  console.log(user);
-  console.log(role);
+  // console.log(user);
+  // console.log(role);
   return (
     <div className="start">
     <div className="home">

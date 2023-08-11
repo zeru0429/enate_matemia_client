@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './add.css';
 import { Form, Button } from 'react-bootstrap';
-import { myGlobalVariable } from '../../constants';
+import { server,imageserver } from '../../constants';
 import AlertExample from '../other/Alert'
 const Add = (props) => {
   const [form, setForm] = useState({});
@@ -32,10 +32,10 @@ const Add = (props) => {
       Object.entries(form).forEach(([key, value]) => {
         formData.append(key, value);
       });
-      console.log(formData);  
-      console.log(`http://localhost:8100/addNew${props.name}/`);
+      //console.log(formData);  
+     // console.log(`http://localhost:8100/addNew${props.name}/`);
       axios
-        .post(`http://localhost:8100/addNew${props.name}/`, formData)
+        .post(`${imageserver}addNew${props.name}/`, formData)
         .then((response) => {
           
           { props.setOpen(false) }

@@ -10,7 +10,7 @@ import SinglePage from '../singlePage/SinglePage';
 import { redirect } from 'react-router-dom';
 import Add from "../../components/add/Add";
 import Show from "../../components/add/Show";
-import { myGlobalVariable } from '../../constants';
+import { server ,imageserver} from '../../constants';
 import AlertComponent from '../alert/AlertComponent';
 export default function DataTable({ first, name }) {
   const [reload, setReload] = useState(false);
@@ -57,7 +57,7 @@ export default function DataTable({ first, name }) {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${myGlobalVariable}${first}`);
+      const response = await axios.get(`${server}${first}`);
       setUser(response.data);
       setFilteredUser(response.data);
     } catch (error) {

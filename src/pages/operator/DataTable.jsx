@@ -12,7 +12,7 @@ import './dataTable.css'; // add the CSS file
 
 //component
 import Show from "../../components/add/Show";
-import { myGlobalVariable } from '../../constants'
+import {imageserver,server } from '../../constants'
 
 export default function DataTable({ first, name }) {
   const [open, setOpen] = useState(false);
@@ -28,8 +28,8 @@ export default function DataTable({ first, name }) {
 
   const fetchData = async () => {
     try {
-      console.log(`${myGlobalVariable}${first}`);
-      const response = await axios.get(`${myGlobalVariable}${first}`);
+      //console.log(`${myGlobalVariable}${first}`);
+      const response = await axios.get(`${server}${first}`);
       setUser(response.data);
       setFilteredUser(response.data);
     } catch (error) {
@@ -140,49 +140,14 @@ export default function DataTable({ first, name }) {
   };
 
   const handleUpdateStatus = async (idnum, name) => {
-    // const url = `${myGlobalVariable}update${first}:${idnum}`;
-    const url = `http://localhost:8100/update-not-completed-order/${idnum}`;
     const data = { status: 'completed' };
-    //console.log(url);
 
-  const response = await axios.post(url, {
+  const response = await axios.post(`${server}update-not-completed-order/${idnum}`, {
     status: data
   })
     console.log(response);
     
-//   .then((response) => {
-//     console.log(response.data); // handle the response data
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });
-    // axios.post(url, data)
-    //   .then((response) => {
-    //     if (response.status != 200) { 
-    //     // update the filteredUser state by setting the status of the completed task to "completed"
-    //     setFilteredUser(prevFilteredUser => prevFilteredUser.map((row, index) => {
-    //       if (row.id === idnum && row.product_name === name) {
-    //         return {
-    //           ...row,
-    //           status: 'completed',
-    //         };
-    //       } else if (index === 0 && row.status === 'ordered') {
-    //         // set the status of the first row with status "ordered" to "pending"
-    //         return {
-    //           ...row,
-    //           status: 'pending',
-    //         };
-    //       } else {
-    //         return row;
-    //       }
-    //     }));
-      
-    //     }
-        
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
+
     
     
   };
