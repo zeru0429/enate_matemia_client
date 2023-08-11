@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./user.css";
 import DataTable from "../../components/dataTable/DataTable";
 import Add from "../../components/add/Add";
+import { Container } from 'react-bootstrap'
 const columns = [
   {
     field: 'f_name',
@@ -81,14 +82,16 @@ const Users = () => {
   };
 
   return (
-    <div className="users container m-5" >
-      <div className="info center">
+    <Container>
+    <div className="users container ms-0 mr-0 mt-auto mb-auto Container" >
+      <div className="info Container">
         <h1>Users</h1>
         <button className="btn btn-primary" onClick={handleAddUserClick}>Add New User</button>
       </div>
       <DataTable first="users" />
       {open &&<Add name= 'users' columns={columns} setOpen={setOpen} />}
-    </div>
+      </div>
+      </Container>
   );
 };
 

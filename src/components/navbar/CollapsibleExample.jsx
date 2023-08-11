@@ -59,7 +59,7 @@ function CollapsibleExample() {
             <Nav.Link as={Link} to="/price">Pricing</Nav.Link>
             {(role =='super' || role =='casher'  )&&<Nav.Link as={Link} to="/order">Orders</Nav.Link>}
             {(role =='super' || role =='operator'  )&&<Nav.Link as={Link} to="/not-completed-oreder">Not Completed Order</Nav.Link>}
-            {(role =='super' || role =='operator'  )&&<Nav.Link as={Link} to="/completed-oreder">Completed Order</Nav.Link>}
+            {(role =='super' || role =='operator' || role =='casher'  )&&<Nav.Link as={Link} to="/completed-oreder">Completed Order</Nav.Link>}
             {(role =='super' || role =='admin'  )&&<Nav.Link as={Link} to="/user">Users</Nav.Link>}
           </Nav>
           <Nav>

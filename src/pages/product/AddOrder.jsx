@@ -27,9 +27,9 @@ const AddOrder = () => {
   }, []);
 
   const handleProductChange = (event) => {
+   
     const selectedProductId = event.target.value;
     setSelectedProduct(selectedProductId);
-
     // Filter sub-divisions level 1 based on the selected product
     const selectedProductData = products.find((product) => product.id === selectedProductId);
     if (selectedProductData) {

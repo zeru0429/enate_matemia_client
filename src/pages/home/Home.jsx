@@ -77,7 +77,6 @@ const Home = () => {
       <div className="box box1">
           <PieChartBox datachart={datachart} />
         </div>
-        <h1>my name is{name}</h1>
         <div className="box box2">
           <BarChartBox
             title="Sample Bar Chart"

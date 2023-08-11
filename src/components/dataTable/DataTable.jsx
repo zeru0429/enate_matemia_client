@@ -151,7 +151,7 @@ export default function DataTable({ first, name }) {
 
   return (
     <>
-    <Container>
+    <div>
       <div ref={componentRef}>
         <DataGrid
           rows={rows}
@@ -179,7 +179,7 @@ export default function DataTable({ first, name }) {
         )}
       </div>
      
-      </Container>
+      </div>
     </>
   );
 }

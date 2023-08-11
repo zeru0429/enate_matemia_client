@@ -8,7 +8,6 @@ const Operator = () => {
           <div className="products container">
             <div className="info center">
               <h1>Operator</h1>
-              <button className="btn btn-primary">Add new order</button>
             </div>
             <Datatable first="completed-oreder" />
           </div>
