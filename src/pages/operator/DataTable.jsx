@@ -139,20 +139,23 @@ export default function DataTable({ first, name }) {
     saveAs(blob, `${name}.csv`);
   };
 
-  const handleUpdateStatus = (idnum, name) => {
+  const handleUpdateStatus = async (idnum, name) => {
     // const url = `${myGlobalVariable}update${first}:${idnum}`;
-    const url = `http://localhost:8100/update-not-completed-order/`;
+    const url = `http://localhost:8100/update-not-completed-order/${idnum}`;
     const data = { status: 'completed' };
-    console.log(url);
-    axios.post(url, {
-  status: data // or whatever data you need to send
-})
-  .then((response) => {
-    console.log(response.data); // handle the response data
+    //console.log(url);
+
+  const response = await axios.post(url, {
+    status: data
   })
-  .catch((error) => {
-    console.error(error);
-  });
+    console.log(response);
+    
+//   .then((response) => {
+//     console.log(response.data); // handle the response data
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
     // axios.post(url, data)
     //   .then((response) => {
     //     if (response.status != 200) { 
