@@ -73,42 +73,35 @@ const Order = () => {
     type: 'select',
     options: productsKind,
     required: true
-  },
- {
-    field: 'type_of_order',
-    headerName: 'type_of_order',
-    type: 'select',
-    options: [
-      { label: 'printing', value: 'printing',id:1 },
-      { label: 'home_made', value: 'home_made',id: 2 },
-    ],
-    required: true
-  },
-  {
-    field: 'state_of_order',
-    headerName: 'state_of_order',
-    type: 'select',
-    options: [
-      { label: 'normal', value: 'normal',id:1 },
-      { label: 'urgent', value: 'urgent',id:2 }
-    ],
-    required: true
-  },
-    {
+     },
+     {
     field: 'amount',
     headerName: 'amount',
     type: 'number',
       required: true,
     defaultValue: 0
   },
-     {
+  {
   field: 'total_price',
   headerName: 'total_price',
   type: 'number',
   required: true,
   disabled: true,
   defaultValue: 0
-},
+     },
+
+ {
+    field: 'type_of_order',
+    headerName: 'type_of_order',
+    type: 'select',
+    options: [
+      { label: 'printing', value: 'out_price',id:1 },
+      { label: 'home_made', value: 'home_price',id: 2 },
+    ],
+    required: true
+  },
+    
+  
     {
     field: 'paid_price',
     headerName: 'paid_price',
@@ -122,7 +115,17 @@ const Order = () => {
   type: 'number',
   required: true,
   disabled: true,
-},
+     },
+  {
+    field: 'state_of_order',
+    headerName: 'state_of_order',
+    type: 'select',
+    options: [
+      { label: 'normal', value: 'normal',id:1 },
+      { label: 'urgent', value: 'urgent',id:2 }
+    ],
+    required: true
+  },
     {
     field: 'fullname',
     headerName: 'fullname',

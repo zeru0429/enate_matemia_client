@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .add .modal1 {
@@ -66,3 +67,32 @@
   padding: 10px;
   cursor: pointer;
 } 
+.add .modal1 form {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px;
+  justify-content: space-between;
+}
+
+.add .modal1 form .item {
+  width: 48%; /* Adjust the width to accommodate two input fields per row */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+    color: white;
+}
+
+.add .modal1 form button {
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin-top to separate the button from the input fields */
+}
+
+
+input{
+  background-color: white !important;
+  color: red  !important;
+}
+
