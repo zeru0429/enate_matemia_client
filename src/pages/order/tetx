@@ -1,0 +1,409 @@
+// ""import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import { Form, Button } from 'react-bootstrap';
+// import AlertExample from '../../components/other/Alert';
+// import { server, imageserver } from '../../constants';
+// const Add = (props) => {
+//   const { selectedProduct, selectedKind,amount,remain_price,paid_price, totalPrice,state_of_order,phone, handleProductChange, handleKindChange,full_name } = props;
+//   const [form, setForm] = useState({});
+//   const [errors, setErrors] = useState({});
+//   let cout = 3;
+//   useEffect(() => {
+//     // Set default values for input fields
+//     const defaultValues = {};
+//     props.columns.forEach((column) => {
+//       defaultValues[column.field] = column.defaultValue || '';
+//     });
+//     setForm(defaultValues);
+//   }, [props.columns]);
+
+ 
+//   const setField = (field, value) => {
+//     setForm((prevForm) => ({
+//       ...prevForm,
+//       [field]: value,
+//     }));
+//   };
+
+//   const handleFileChange = (e) => {
+//     const file = e.target.files[0];
+//     setForm((prevForm) => ({
+//       ...prevForm,
+//       profile: file,
+//     }));
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     if (validateForm()) {
+//       const formData = new FormData();
+//       Object.entries(form).forEach(([key, value]) => {
+//         formData.append(key, value);
+//       });
+//       axios
+//         .post(`${imageserver}addNew${props.name}/`, formData)
+//         .then((response) => {
+//           props.setOpen(false);
+//           <AlertExample message={`Successfully Added`} variant='success' />;
+//           console.log(response.data);
+//         })
+//         .catch((error) => {
+//           console.log(error);
+//         });
+//     }
+//     console.log(errors);
+//   };
+
+//   const validateForm = () => {
+//     let isValid = true;
+//     // Add your validation logic here
+//     return isValid;
+//   };
+
+ 
+
+//   return (
+//     <>
+//     <div className="add container">
+//           <div className="modal1">
+//             <span className="close" onClick={() => {props.setOpen(false)}}>
+//             X
+//           </span>
+//             <h1>new {props.name}</h1>
+//       <Form onSubmit={handleSubmit}>
+//         <Form.Group key="product_name">
+//           <Form.Label>product_name</Form.Label>
+//           <Form.Control
+//             required
+//             as="select"
+//             name="product_name"
+//             value={selectedProduct ? selectedProduct.id : ''}
+//             onChange={(e) => handleProductChange(Number(e.target.value))}
+//             disabled={false} // You can adjust the disabled attribute as needed
+//           >
+//             <option value="">None</option>
+//             {props.columns[0].options.map((option) => (
+//               <option key={option.value} value={option.id}>
+//                 {option.label}
+//               </option>
+//             ))}
+//           </Form.Control>
+//         </Form.Group>
+          
+//         <Form.Group key="kind_of_product">
+//           <Form.Label>kind_of_product</Form.Label>
+//           <Form.Control
+//             required
+//             as="select"
+//             name="kind_of_product"
+//             value={selectedKind || ''}
+//             onChange={(e) => handleKindChange(e.target.value)}
+//             disabled={!selectedProduct} // Disable if no product is selected
+//           >
+//             <option value="">None</option>
+//             {props.columns[1].options
+//               .filter((option) => option.id === selectedProduct?.id)
+//               .map((option) => (
+//                 <option key={option.value} value={option.value}>
+//                   {option.label}
+//                 </option>
+//               ))}
+//           </Form.Control>
+//         </Form.Group>
+//          <Form.Group key="type_of_order">
+//           <Form.Label>type_of_order</Form.Label>
+//           <Form.Control
+//             required
+//             as="select"
+//             name="type_of_order"
+//             value={selectedKind || ''}
+//             onChange={(e) => handleKindChange(e.target.value)}
+//             disabled={!selectedProduct} // Disable if no product is selected
+//           >
+//             <option value="">None</option>
+//             {props.columns[1].options
+//               .filter((option) => option.id === selectedProduct?.id)
+//               .map((option) => (
+//                 <option key={option.value} value={option.value}>
+//                   {option.label}
+//                 </option>
+//               ))}
+//           </Form.Control>
+//           </Form.Group>
+//         <Form.Group key="state_of_order">
+//           <Form.Label>state_of_order</Form.Label>
+//           <Form.Control
+//             required
+//             as="select"
+//             name="state_of_order"
+//             value={selectedKind || ''}
+//             onChange={(e) => handleKindChange(e.target.value)}
+//             disabled={!selectedProduct} // Disable if no product is selected
+//           >
+//             <option value="">None</option>
+//             {props.columns[1].options
+//               .filter((option) => option.id === selectedProduct?.id)
+//               .map((option) => (
+//                 <option key={option.value} value={option.value}>
+//                   {option.label}
+//                 </option>
+//               ))}
+//           </Form.Control>
+//         </Form.Group>  
+//         <Form.Group key="amount">
+//           <Form.Label>amount</Form.Label>
+//               <Form.Control
+//             placeholder='amount'
+//             type="number"
+//             name="amount"
+//             value={amount}
+//           />
+//         </Form.Group>
+//         <Form.Group key="total_price">
+//           <Form.Label>total_price</Form.Label>
+//           <Form.Control
+//             type="number"
+//             name="total_price"
+//             value={totalPrice}
+//             disabled
+//           />
+//         </Form.Group>
+//         <Form.Group key="paid_price">
+//           <Form.Label>paid_price</Form.Label>
+//           <Form.Control
+//             type="number"
+//             placeholder='paid_price'
+//             name="paid_price"
+//             value={paid_price}
+//           />
+//         </Form.Group>
+//         <Form.Group key="remain_price">
+//           <Form.Label>remain_price</Form.Label>
+//           <Form.Control
+//             type="number"
+//             placeholder='remain_price'
+//             name="remain_price"
+//             value={remain_price}
+//             disabled='true'
+//           />
+//         </Form.Group>
+//         <Form.Group key="full_name">
+//           <Form.Label>full_name</Form.Label>
+//           <Form.Control
+//                 type="text"
+//                 placeholder='full_name'
+//             name="full_name"
+//             value={full_name}
+//           />
+//         </Form.Group>
+//         <Form.Group key="phone">
+//           <Form.Label>phone</Form.Label>
+//           <Form.Control
+//                 type="text"
+//                 placeholder='phone'
+//             name="phone"
+//             value={phone}
+//           />
+//         </Form.Group>
+//         <Form.Group className="item">
+//         <Button variant="primary" type="submit">
+//           Submit
+//         </Button>
+//         </Form.Group>
+//       </Form>
+//       </div>
+//     </div>
+//   </>
+// );
+// }
+// export default Add;
+// ""  ""import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import Datatable from '../../components/dataTable/DataTable';
+// import Add from './Add';
+// import { server } from '../../constants';
+
+// const Order = () => {
+//   let pro_name = [{}];
+//   let productsKind = [{}];
+//   let productsMunit = [{}];
+//   const [products, setProducts] = useState([]);
+//   const [open, setOpen] = useState(false);
+//   const [selectedProduct, setSelectedProduct] = useState(null);
+//   const [selectedKind, setSelectedKind] = useState(null);
+//   const [totalPrice, setTotalPrice] = useState(0);
+
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       try {
+//         const response = await axios.get(`${server}products`);
+//         setProducts(response.data);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     };
+
+//     fetchProducts();
+//   }, []);
+
+//   if (products) { 
+//     products.map((single,i) => { 
+//       pro_name.push(
+//          { label: single.product_name, value: single.product_name,id:i  }
+//                 )
+//       productsKind.push({
+//       label: single.kind_of_product, value: single.kind_of_product ,id:i },
+//       )
+//     })
+//   }
+//   const handleProductChange = (selectedProductId) => {
+//     const selectedProduct = products.find((product) => product.id === selectedProductId);
+//     setSelectedProduct(selectedProduct);
+//     setSelectedKind(null);
+//     setTotalPrice(0);
+//   };
+
+//   const handleKindChange = (selectedKind) => {
+//     setSelectedKind(selectedKind);
+//     if (selectedProduct && selectedKind) {
+//       // Fetch the price from the server based on selectedProduct and selectedKind
+//       const calculatedTotalPrice = calculateTotalPrice(selectedProduct, selectedKind);
+//       setTotalPrice(calculatedTotalPrice);
+//     }
+//   };
+
+//   const calculateTotalPrice = (product, kind) => {
+    
+//     // Implement your logic to fetch and calculate the total price
+//     return 0; // Placeholder value, replace with your actual calculation
+//   };
+
+//    const columns = [
+//   {
+//     field: 'product_name',
+//     headerName: 'product_name',
+//     type: 'select',
+//       options: pro_name,
+//     required: true
+//   },
+//     {
+//     field: 'kind_of_product',
+//     headerName: 'kind_of_product',
+//     type: 'select',
+//     options: productsKind,
+//     required: true
+//      },
+//      {
+//     field: 'amount',
+//     headerName: 'amount',
+//     type: 'number',
+//       required: true,
+//     defaultValue: 0
+//   },
+//   {
+//   field: 'total_price',
+//   headerName: 'total_price',
+//   type: 'number',
+//   required: true,
+//   disabled: true,
+//   defaultValue: 0
+//      },
+
+//  {
+//     field: 'type_of_order',
+//     headerName: 'type_of_order',
+//     type: 'select',
+//     options: [
+//       { label: 'printing', value: 'out_price',id:1 },
+//       { label: 'home_made', value: 'home_price',id: 2 },
+//     ],
+//     required: true
+//   },
+    
+  
+//     {
+//     field: 'paid_price',
+//     headerName: 'paid_price',
+//     type: 'number',
+//       required: true,
+//     defaultValue: 0
+//     },
+//       {
+//   field: 'remain_price',
+//   headerName: 'remain_price',
+//   type: 'number',
+//   required: true,
+//   disabled: true,
+//      },
+//   {
+//     field: 'state_of_order',
+//     headerName: 'state_of_order',
+//     type: 'select',
+//     options: [
+//       { label: 'normal', value: 'normal',id:1 },
+//       { label: 'urgent', value: 'urgent',id:2 }
+//     ],
+//     required: true
+//   },
+//     {
+//     field: 'fullname',
+//     headerName: 'fullname',
+//     type: 'text',
+//     required: true
+//   },
+//     {
+//     field: 'phone',
+//     headerName: 'phone',
+//     type: 'text',
+//     required: true
+//   },
+
+// ];
+
+//   return (
+//     <div className="products container">
+//       <div className="info center">
+//         <h1>Orders</h1>
+//         <button className="btn btn-primary" onClick={() => setOpen(true)}>
+//           Add new order
+//         </button>
+//       </div>
+//       <Datatable first="orders" />
+//       {open && (
+//         <Add
+//           name="orders"
+//           columns={columns}
+//           setOpen={setOpen}
+//           selectedProduct={selectedProduct}
+//           selectedKind={selectedKind}
+//           totalPrice={totalPrice}
+//           handleProductChange={handleProductChange}
+//           handleKindChange={handleKindChange}
+//         />
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Order;
+
+// ""  and ""CREATE TABLE IF NOT EXISTS `orders` (
+//   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+//   `product_id` INT NOT NULL,
+//   `kind_of_product` ENUM('normal', 'reflective') NOT NULL,
+//   `type_of_order` ENUM('printing', 'home_made') NOT NULL,
+//   `state_of_order` ENUM('normal', 'urgent') NOT NULL,
+//   `amount` INT NOT NULL,
+//   `total_price` DECIMAL(8, 2) NOT NULL,
+//   `paid_price` DECIMAL(8, 2) NOT NULL,
+//   `remain_price` DECIMAL(8, 2) NOT NULL,
+//   `status` ENUM('ordered', 'pending', 'completed') NOT NULL,
+//   `phone` VARCHAR(14) NOT NULL,
+//   `full_name` VARCHAR(50) NOT NULL,
+//   `casher_name` VARCHAR(50) NOT NULL,
+//   `date_of_order` DATETIME NOT NULL,
+//   FOREIGN KEY (`product_id`)
+//     REFERENCES `products` (`id`)
+//     ON DELETE NO ACTION
+//     ON UPDATE NO ACTION
+// );"

@@ -1,0 +1,239 @@
+[33mcommit c9ee50a357c4660c2d91292f6db5bef5dd583b2e[m[33m ([m[1;36mHEAD -> [m[1;32mloginSystem[m[33m, [m[1;31morigin/loginSystem[m[33m)[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Aug 12 15:29:41 2023 +0300
+
+    ...........
+
+[33mcommit a331de03d0cbdba079df95b23215da2209d25616[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Aug 12 14:46:50 2023 +0300
+
+    75% finished order functionality
+
+[33mcommit 45d8605c5f9dec46bad0a3c8b2b05c7c0f3fad51[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Aug 12 14:46:08 2023 +0300
+
+    try do add new order function but 75 % finished
+
+[33mcommit f46654ba9d7340a5b6ade0cf3231181b45f776ee[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Aug 12 00:51:30 2023 +0300
+
+    add new order function is on progress
+
+[33mcommit 28c86527aec97bc2885ee45ae099b7b581011b08[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Fri Aug 11 13:33:27 2023 +0300
+
+    tring to modify ordering system
+
+[33mcommit 97c8e46094e25fb59fb01a1b96e239e814c9ec8a[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Fri Aug 11 11:19:32 2023 +0300
+
+    NOT COMMPLETED page finished
+
+[33mcommit 1d105ec9b1f418240beec2c2f6bdc66a4f63558d[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Wed Aug 9 09:52:30 2023 +0300
+
+    change password completed
+
+[33mcommit 4ec4c41e009e319c48b5176d57ac030444e84bba[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Wed Aug 9 08:40:24 2023 +0300
+
+    deleteing functionality finished
+
+[33mcommit a872addeecdfcb5984674c3d4d660fcf2f001ec5[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Wed Aug 9 07:26:00 2023 +0300
+
+    role based completed
+
+[33mcommit c5d807323562ad7487405e2828f705247ee61a66[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Mon Aug 7 12:56:18 2023 +0300
+
+    role also addedto context
+
+[33mcommit 20ee6f999fa3dceafc7ad20dde585486112e0284[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Mon Aug 7 11:47:17 2023 +0300
+
+    login system completed successfully
+
+[33mcommit 0ec636ee24368d4798df68dec5338dce5bb91b47[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Mon Aug 7 10:47:26 2023 +0300
+
+    removing nav bar from login
+
+[33mcommit 9a54a4c228eee2ac8dc209f9ab6da4498b0620bb[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Mon Aug 7 10:41:26 2023 +0300
+
+    profile page added
+
+[33mcommit 52ca427db135db5bb3fefbcb1392850b2f002ba1[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Mon Aug 7 09:05:37 2023 +0300
+
+    profile page added
+
+[33mcommit 79756576da51b2808c9894b76153cea5b3648d87[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Mon Aug 7 08:27:50 2023 +0300
+
+    add user and product completed
+
+[33mcommit ed05cc230f308f01aeba8991baa7fc9ce38c2da4[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sun Aug 6 21:13:48 2023 +0300
+
+    image upload is not working
+
+[33mcommit 753280a8f66c86bceb6fe0838cb648b1277491dc[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Aug 5 19:12:33 2023 +0300
+
+    try to add new order
+
+[33mcommit 554b844d196e654b811f93443d1a1895fbbb24d1[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Aug 5 14:27:14 2023 +0300
+
+    image successfully rendered
+
+[33mcommit fd524666b50590eb6628666fa18d5bfdccc07a8f[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Aug 5 13:29:35 2023 +0300
+
+    not working
+
+[33mcommit b417523db3d52888d3f1dbd3a27ba21217b0446a[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Aug 5 07:47:18 2023 +0300
+
+    multer setup started
+
+[33mcommit fd544fa00443a62ef6bd7592c7fc3e9129e78bec[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sun Jul 30 17:19:00 2023 +0300
+
+    tayered geting some rest
+
+[33mcommit 541e5048d74de69dc8d8939bd723b744501b37b4[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sun Jul 30 17:07:22 2023 +0300
+
+    updating pending functionality
+
+[33mcommit 51a3a9a3ecc92ff2899d7f40ff5b9ff8d84dac32[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sun Jul 30 16:31:21 2023 +0300
+
+    operator functinality almost finished
+
+[33mcommit c9170b09992bad0dda3001aa88766e64346fce5b[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Jul 29 15:45:35 2023 +0300
+
+    home page rechart add
+
+[33mcommit 0b293c62f60ef761339e061b83136985b6502b47[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Jul 29 13:38:39 2023 +0300
+
+    upadate functionality in half way
+
+[33mcommit 7cc9aa16866841adcd5dd4754f8ee059b69886bb[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Jul 29 11:39:59 2023 +0300
+
+    delete and view functionality finished
+
+[33mcommit c9e9399f2c3d36dec9bdd12c455a106a22c9025b[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Jul 29 11:17:34 2023 +0300
+
+    single user product and order  detail page finished
+
+[33mcommit 4b6cd54a898fe884e08a170603378c2a9cc932fc[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sat Jul 29 08:42:50 2023 +0300
+
+    delete functionality finished
+
+[33mcommit ee91e5579b633c0b63569bd9afd98e553b56b2c6[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Fri Jul 28 14:09:51 2023 +0300
+
+    add new user client and server side finished
+
+[33mcommit a6f5d294e018daf9acde19a3c1cfb73705377f1a[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Fri Jul 28 11:11:34 2023 +0300
+
+    adding page finished
+
+[33mcommit 2e7ae4efc4e4ed3442e3987342b1594ef3720ca0[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Fri Jul 28 10:58:08 2023 +0300
+
+    order page is one the way to prepare
+
+[33mcommit 926ef3ee05701a4967d736bdbde9ce8cf427264a[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Wed Jul 26 22:42:54 2023 +0300
+
+    add user form validation finished
+
+[33mcommit 56513782d8c518d36e12fd3b0b97d57585a27890[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Wed Jul 26 21:16:06 2023 +0300
+
+    add user validation starrt
+
+[33mcommit 9d9ec031b03671b733872e9126feaad6b97ec584[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Wed Jul 26 18:29:59 2023 +0300
+
+    form validation inserted in to sign in page
+
+[33mcommit afbd7eda56b4abfb67ca3665c28fb04db9342e76[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Wed Jul 26 17:14:25 2023 +0300
+
+    form validation started
+
+[33mcommit a63cf23b9382b83d9fca339223d7290e50cb897b[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Wed Jul 26 16:17:34 2023 +0300
+
+    add component prepared
+
+[33mcommit f5c2508e4a70411be30665d4355d78aab8f5fc0c[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Wed Jul 26 15:13:46 2023 +0300
+
+    login page addede
+
+[33mcommit a392df4acacf5bd329224544d32218f2ae35c9dc[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Mon Jul 24 14:18:06 2023 +0530
+
+    tables on progress
+
+[33mcommit 8d229800ceffe31d28872aecd20bdf9c7d65f789[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Mon Jul 24 11:04:01 2023 +0530
+
+    ui started
+
+[33mcommit daefb91008f10f28831c0d984d9cb8b9b9acf133[m
+Author: zeru0429 <mihiretutigistu@gmail.com>
+Date:   Sun Jul 23 11:22:00 2023 +0530
+
+    Initialize project using Create React App
