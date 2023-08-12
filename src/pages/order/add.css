@@ -8,9 +8,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .add .modal1 {
+  margin: 0 auto !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   padding: 50px;
   border-radius: 10px;
   background-color: #2a3447;
@@ -49,7 +54,7 @@
 
 .add .modal1 form .item label {
   font-size: 14px;
-  color: white;
+  color: white !important;
 }
 
 .add .modal1 form .item input {
@@ -66,3 +71,27 @@
   padding: 10px;
   cursor: pointer;
 } 
+.add .modal1 form {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px;
+  justify-content: space-between;
+}
+
+.add .modal1 form .item {
+  width: 48%; /* Adjust the width to accommodate two input fields per row */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px !important;
+    color: white;
+}
+
+.add .modal1 form button {
+  margin: 5px;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 20px !important; /* Add margin-top to separate the button from the input fields */
+}
+
