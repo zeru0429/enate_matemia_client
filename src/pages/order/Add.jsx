@@ -4,10 +4,13 @@ import { Form, Button } from 'react-bootstrap';
 import AlertExample from '../../components/other/Alert';
 import { server, imageserver } from '../../constants';
 const Add = (props) => {
-  const { selectedProduct, selectedKind,amount,remain_price,paid_price, totalPrice,state_of_order,phone, handleProductChange, handleKindChange,full_name } = props;
+  const { selectedProduct, selectedKind,selectedOrder,amount,remain_price,paid_price, totalPrice,state_of_order,phone, handleProductChange, handleKindChange,full_name } = props;
+  const [total__price, setTotal__price] = useState(0);
   const [form, setForm] = useState({});
+  const [amout_price, setAmout_price] = useState(0);
   const [errors, setErrors] = useState({});
   let cout = 3;
+    const products = props.pro_name_list;
   useEffect(() => {
     // Set default values for input fields
     const defaultValues = {};
@@ -60,16 +63,53 @@ const Add = (props) => {
     return isValid;
   };
 
- 
+  const hudleOrderType = (e) => { 
+    const pname = selectedProduct.product_name
+    // Example usage
+    const productName = pname;
+    const kindOfProduct = selectedKind;
+    const home = getPrice(productName, kindOfProduct, e.target.value);
+    setTotal__price(home);
+
+    //console.log("Home Price:", home);
+    
+}
+
+
+const hundleAmount = (e) => { 
+  let amountValue = e.target.value;
+  
+  
+}
+
+
+  function getPrice(productName, kindOfProduct,workAt) {
+  // console.log(workAt);
+  const matchedProduct = products.find(
+    (product) =>
+      product.product_name === productName && product.kind_of_product === kindOfProduct
+    );
+   
+    //console.log(matchedProduct);
+    if (matchedProduct) {
+      if (workAt == 'home_price') { return matchedProduct.home_price }
+      else if (workAt == 'out_price'){ return matchedProduct.out_price}
+    }
+    else
+    {
+      return 0;
+  }
+}
+
 
   return (
     <>
     <div className="add container">
-          <div className="modal1">
-            <span className="close" onClick={() => {props.setOpen(false)}}>
-            X
-          </span>
-            <h1>new {props.name}</h1>
+      <div className="modal1">
+        <span className="close" onClick={() => {props.setOpen(false)}}>
+        X
+      </span>
+      <h1>new {props.name}</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group key="product_name">
           <Form.Label>product_name</Form.Label>
@@ -110,44 +150,20 @@ const Add = (props) => {
               ))}
           </Form.Control>
         </Form.Group>
-         <Form.Group key="type_of_order">
-          <Form.Label>type_of_order</Form.Label>
-          <Form.Control
-            required
-            as="select"
-            name="type_of_order"
-            value={selectedKind || ''}
-            onChange={(e) => handleKindChange(e.target.value)}
-            disabled={!selectedProduct} // Disable if no product is selected
-          >
-            <option value="">None</option>
-            {props.columns[1].options
-              .filter((option) => option.id === selectedProduct?.id)
-              .map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-          </Form.Control>
-          </Form.Group>
         <Form.Group key="state_of_order">
           <Form.Label>state_of_order</Form.Label>
           <Form.Control
             required
             as="select"
-            name="state_of_order"
-            value={selectedKind || ''}
-            onChange={(e) => handleKindChange(e.target.value)}
-            disabled={!selectedProduct} // Disable if no product is selected
-          >
-            <option value="">None</option>
-            {props.columns[1].options
-              .filter((option) => option.id === selectedProduct?.id)
-              .map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
+            name="type_of_order"
+            // value={selectedOrder|| ''}
+             onChange={hudleOrderType}
+            disabled={!selectedKind}
+              >
+            <option key='' value=''>None</option>
+            <option key='printing' value='out_price'>printing only</option>
+            <option key='home_made' value='home_price'>home_made</option>
+        
           </Form.Control>
         </Form.Group>  
         <Form.Group key="amount">
@@ -157,14 +173,16 @@ const Add = (props) => {
             type="number"
             name="amount"
             value={amount}
+            onChange={hundleAmount}
           />
         </Form.Group>
         <Form.Group key="total_price">
           <Form.Label>total_price</Form.Label>
-          <Form.Control
+              <Form.Control
+            id='totalId'
             type="number"
             name="total_price"
-            value={totalPrice}
+            value={total__price}
             disabled
           />
         </Form.Group>
@@ -205,8 +223,8 @@ const Add = (props) => {
             value={phone}
           />
         </Form.Group>
-        <Form.Group className="item">
-        <Button variant="primary" type="submit">
+        <Form.Group className="item center"> <br />
+        <Button variant="primary" type="submit" disabled>
           Submit
         </Button>
         </Form.Group>

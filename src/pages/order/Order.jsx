@@ -50,6 +50,7 @@ const Order = () => {
     if (selectedProduct && selectedKind) {
       // Fetch the price from the server based on selectedProduct and selectedKind
       const calculatedTotalPrice = calculateTotalPrice(selectedProduct, selectedKind);
+      
       setTotalPrice(calculatedTotalPrice);
     }
   };
@@ -161,6 +162,7 @@ const Order = () => {
           totalPrice={totalPrice}
           handleProductChange={handleProductChange}
           handleKindChange={handleKindChange}
+          pro_name_list={products}
         />
       )}
     </div>
