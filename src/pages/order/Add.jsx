@@ -7,7 +7,7 @@ const Add = (props) => {
   const { selectedProduct, selectedKind, totalPrice, handleProductChange, handleKindChange } = props;
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
-
+  let cout = 3;
   useEffect(() => {
     // Set default values for input fields
     const defaultValues = {};
@@ -66,7 +66,6 @@ const Add = (props) => {
     <>
       <div className="add">
         <div className="modal1">
-          {/* ... (your existing JSX) */}
           <Form.Group key="product_name">
             <Form.Label>product_name</Form.Label>
             <Form.Control
@@ -114,7 +113,54 @@ const Add = (props) => {
               disabled
             />
           </Form.Group>
-          {/* ... (rest of your JSX) */}
+          {props.columns.map((column) => ({if(cout>=0) continue; } 
+            
+              <Form.Group key={column.field}>
+                <Form.Label>{column.headerName}</Form.Label>
+                {column.type === 'select' && (
+                  <Form.Control
+                    required
+                    as="select"
+                    name={column.field}
+                    value={form[column.field] || ''}
+                    onChange={(e) => setField(column.field, e.target.value)}
+                  >
+                    <option value="">None</option>
+                    {column.options.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </Form.Control>
+                )}
+                {column.type === 'image' && (
+                  <Form.Control
+                    type="file"
+                    name={column.field}
+                    accept="image/jpeg, image/png"
+                    onChange={handleFileChange}
+                    isInvalid={!!errors[column.field]}
+                    required={column.required}
+                  />
+                )}
+                {column.type !== 'select' && column.type !== 'image' && (
+                  <Form.Control
+                    type={column.type}
+                    name={column.field}
+                    placeholder={column.field}
+                    value={form[column.field] || ''}
+                    onChange={(e) => setField(column.field, e.target.value)}
+                    isInvalid={!!errors[column.field]}
+                    required={column.required}
+                  />
+                )}
+                {errors[column.field] && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors[column.field]}
+                  </Form.Control.Feedback>
+                )}
+              </Form.Group>
+            ))}
         </div>
       </div>
     </>
