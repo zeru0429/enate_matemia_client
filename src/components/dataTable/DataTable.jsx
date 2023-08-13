@@ -175,7 +175,7 @@ export default function DataTable({ first, name }) {
           className="dataTable"
         />
         {open && (
-          <Show name={name} columns={columns} setOpen={setOpen} rowData={selectedRowData} />
+          <Show name={first} columns={columns} setOpen={setOpen} rowData={selectedRowData} />
         )}
       </div>
      

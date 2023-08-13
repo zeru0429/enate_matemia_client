@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import AlertExample from '../../components/other/Alert';
 import { server, imageserver } from '../../constants';
 const Add = (props) => {
+  let TOTAL = 0;
   const { selectedProduct, selectedKind,selectedOrder,amount,remain_price,paid_price, totalPrice,state_of_order,phone, handleProductChange, handleKindChange,full_name } = props;
   const [total__price, setTotal__price] = useState(0);
   const [form, setForm] = useState({});
@@ -20,7 +21,11 @@ const Add = (props) => {
     setForm(defaultValues);
   }, [props.columns]);
 
- 
+  useEffect(() => {
+    console.log(TOTAL);
+    setTotal__price(amout_price*TOTAL)
+    //console.log(amout_price);
+  }, [amout_price]);
   const setField = (field, value) => {
     setForm((prevForm) => ({
       ...prevForm,
@@ -70,6 +75,8 @@ const Add = (props) => {
     const kindOfProduct = selectedKind;
     const home = getPrice(productName, kindOfProduct, e.target.value);
     setTotal__price(home);
+    TOTAL = home;
+   // console.log(TOTAL);
 
     //console.log("Home Price:", home);
     
@@ -78,8 +85,7 @@ const Add = (props) => {
 
 const hundleAmount = (e) => { 
   let amountValue = e.target.value;
-  
-  
+  setAmout_price(amountValue)  
 }
 
 
@@ -172,8 +178,8 @@ const hundleAmount = (e) => {
             placeholder='amount'
             type="number"
             name="amount"
-            value={amount}
-            onChange={hundleAmount}
+            value={amout_price}
+            onChange={(e) => setAmout_price(e.target.value)}
           />
         </Form.Group>
         <Form.Group key="total_price">
@@ -181,8 +187,9 @@ const hundleAmount = (e) => {
               <Form.Control
             id='totalId'
             type="number"
-            name="total_price"
-            value={total__price}
+             name="total_price"
+           value={total__price}
+            onChange={(e) => setTotal__price(amout_price)}
             disabled
           />
         </Form.Group>
