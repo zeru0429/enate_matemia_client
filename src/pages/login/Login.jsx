@@ -98,7 +98,7 @@ const Login = () => {
   useEffect(() => {
     axios.defaults.withCredentials = true;
     const checkLoginStatus = async () => {
-      axios.get('http://localhost:8100/logincheck')
+      axios.get(`${server}logincheck`)
         .then((response) => { 
           if (response.data.status == 'success') {
             setAuth(true)

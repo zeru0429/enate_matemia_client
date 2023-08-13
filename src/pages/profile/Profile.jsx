@@ -103,7 +103,7 @@ const Profile = () => {
   return (
     <div className="profile">
       <div className="profile-header">  
-        <img src={`http://localhost:8100/${profileData.image_url}`} alt="Profile Picture" className="profile-picture" />
+        <img src={`${server}/${profileData.image_url}`} alt="Profile Picture" className="profile-picture" />
       </div>
       <div className="profile-info">
         <h2>{profileData.f_name} {profileData.m_name} {profileData.l_name}</h2>

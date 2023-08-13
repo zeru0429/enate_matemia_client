@@ -37,7 +37,7 @@ const Add = (props) => {
       //console.log(formData);  
      // console.log(`http://localhost:8100/addNew${props.name}/`);
       axios
-        .post(`${imageserver}addNew${props.name}/`, formData)
+        .post(`${server}addNew${props.name}/`, formData)
         .then((response) => {
           
           { props.setOpen(false) }

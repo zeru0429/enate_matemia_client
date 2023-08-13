@@ -54,6 +54,9 @@ const chartBoxUser = {
     { name: "Sat", users: 450 },
   ],
 };
+
+
+
 const Home = () => {
   const [name, setName] = useState('');
   const [auth, setAuth] = useState(false);
@@ -68,7 +71,11 @@ const Home = () => {
       setName(user)
     }
 
-  },[])
+
+  }, [])
+  
+
+
   // console.log(user);
   // console.log(role);
   return (
@@ -79,7 +86,7 @@ const Home = () => {
         </div>
         <div className="box box2">
           <BarChartBox
-            title="Sample Bar Chart"
+            title="Order data"
             chartData={ChartData}
             dataKey="data"
             color="#8884d8" 

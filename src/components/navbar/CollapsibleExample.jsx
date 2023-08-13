@@ -10,7 +10,7 @@ import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useStateValue } from "../../utility/stateprovider";
-
+import { server} from '../../constants'
 function CollapsibleExample() {
   const navigate = useNavigate();
    const [{user,role}, dispatch] = useStateValue();
@@ -25,7 +25,7 @@ function CollapsibleExample() {
   const handlelogout = () => { 
     console.log("logout");
      axios.defaults.withCredentials = true;
-    axios.get('http://localhost:8100/logout')
+    axios.get(`${server}logout`)
       .then((response) => { 
         if (response.data.status == 'success') { 
           dispatch({

@@ -21,7 +21,7 @@ const Add = (props) => {
     if (validateForm()) {
       console.log(form);
       axios
-        .post(`${server}/addNew${props.name}/`, [form,user,role])
+        .post(`${server}addNew${props.name}/`, [form,user,role])
         .then((response) => {
           alert("pass word changed successfully ");
          // console.log(response);
