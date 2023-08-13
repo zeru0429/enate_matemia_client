@@ -86,10 +86,28 @@ const Add = (props) => {
     form.type_of_order = type_of_order;
     form.state_of_order = state_of_order1;
     form.casher_name=user
-    console.log(form);
+   // console.log(form);
     //console.log(selectedProduct );
     if (validateForm()) {
+    console.log(`${server}addNew${props.name}/`, form);
+
+       axios
+        .post(`${server}addNew${props.name}/`, form)
+        .then((response) => {
+          console.log(response.data);
+          { props.setOpen(false) }
+          
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     
+
+
+
+
+
+
     }
   };
 
