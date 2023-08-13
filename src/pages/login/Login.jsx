@@ -33,7 +33,7 @@ const Login = () => {
     if (validateForm()) {
       try {
         axios.defaults.withCredentials = true;
-        const response = await axios.post(`${server}login`, form);
+        const response = await axios.post(`http://192.168.1.250:8100/login`, form);
         const data = response.data;
         console.log(response);
         if (data.status === 'success') {
@@ -98,7 +98,8 @@ const Login = () => {
   useEffect(() => {
     axios.defaults.withCredentials = true;
     const checkLoginStatus = async () => {
-      axios.get(`${server}logincheck`)
+      console.log(`${server}logincheck`);
+      axios.get(`http://192.168.1.250:8100/logincheck`)
         .then((response) => { 
           if (response.data.status == 'success') {
             setAuth(true)
