@@ -111,7 +111,7 @@ const Profile = () => {
         <p>Role: {profileData.role}</p>
         <p>Phone: {profileData.phone}</p>
         <button className='btn btn-warning' onClick={handleChangePasswordClick}>Change Password</button>
-        <button className='btn btn-primary' onClick={handleChangeUpdateProfileClick}>Update Profile</button>
+        {/* <button className='btn btn-primary' onClick={handleChangeUpdateProfileClick}>Update Profile</button> */}
         {open &&<Add name= 'change_password' columns={columns} setOpen={setOpen} />} 
        {open2 &&<Add name= 'updateProfile' columns={columns2} setOpen={setOpen2} />}
       </div>
