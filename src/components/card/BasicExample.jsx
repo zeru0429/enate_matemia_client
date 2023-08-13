@@ -1,7 +1,11 @@
+import { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 function BasicExample(props) {
+  useEffect(() => {
+    //console.log(props.image_url);
+  },[])
   return (
     <div className='container center col-4'>
       <Card style={{ width: '12rem' }}>
