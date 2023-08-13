@@ -12,6 +12,8 @@ import Add from "../../components/add/Add";
 import Show from "../../components/add/Show";
 import { server ,imageserver} from '../../constants';
 import AlertComponent from '../alert/AlertComponent';
+
+
 export default function DataTable({ first, name }) {
   const [reload, setReload] = useState(false);
   const [open, setOpen] = useState(false);
@@ -90,27 +92,29 @@ export default function DataTable({ first, name }) {
   });
 
   const handleDelete = (id) => {
+    const confirmed = window.confirm(`Are you sure? \n you want to delete ${first}`)
   // console.log(`http://localhost:8100/delete${first}/${id}`);
-    axios
-      .delete(`http://localhost:8100/delete${first}/${id}`)
-      .then((response) => {
-        alert(response.data)
+    if (confirmed) {
+      axios
+        .delete(`${server}delete${first}/${id}`)
+        .then((response) => {
+          alert(response.data)
 
-        // setAlertdata = {
-        //   message: response.data,
-        //   color: 'success'
-        // }
+          // setAlertdata = {
+          //   message: response.data,
+          //   color: 'success'
+          // }
         
          
-      })  
-      .catch((error) => {
-        alert(error)
-        //   setAlertdata = {
-        //   message: error,
-        //   color: 'success'
-        // }
-        console.error(error);
-      });
+        })
+        .catch((error) => {
+          alert(error)
+          console.error(error);
+        });
+    }
+    else { 
+      alert('delete canceled');
+    }
   };
 
   useEffect(() => {
