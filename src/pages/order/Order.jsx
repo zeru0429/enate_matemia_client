@@ -4,11 +4,9 @@ import Datatable from '../../components/dataTable/DataTable';
 import Add from './Add';
 import { server } from '../../constants';
 
-
 const Order = () => {
   let pro_name = [{}];
   let productsKind = [{}];
-  let productsMunit = [{}];
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -29,15 +27,12 @@ const Order = () => {
   }, []);
 
   if (products) { 
-    products.map((single,i) => { 
-      pro_name.push(
-         { label: single.product_name, value: single.product_name,id:i  }
-                )
-      productsKind.push({
-      label: single.kind_of_product, value: single.kind_of_product ,id:i },
-      )
-    })
+    products.map((single, i) => { 
+      pro_name.push({ label: `${single.product_name} - ${single.kind_of_product}`, value: single.product_name, id: i });
+      productsKind.push({ label: single.kind_of_product, value: single.kind_of_product, id: i });
+    });
   }
+
   const handleProductChange = (selectedProductId) => {
     const selectedProduct = products.find((product) => product.id === selectedProductId);
     setSelectedProduct(selectedProduct);
@@ -56,26 +51,26 @@ const Order = () => {
   };
 
   const calculateTotalPrice = (product, kind) => {
-    
     // Implement your logic to fetch and calculate the total price
     return 0; // Placeholder value, replace with your actual calculation
   };
 
-   const columns = [
-  {
-    field: 'product_name',
-    headerName: 'product_name',
-    type: 'select',
-      options: pro_name,
-    required: true
-  },
+  const columns = [
     {
-    field: 'kind_of_product',
-    headerName: 'kind_of_product',
-    type: 'select',
-    options: productsKind,
-    required: true
-     },
+      field: 'product_name',
+      headerName: 'product_name',
+      type: 'select',
+      options: pro_name,
+      required: true
+    },
+    {
+      field: 'kind_of_product',
+      headerName: 'kind_of_product',
+      type: 'select',
+      options: productsKind,
+      required: true
+    },
+  
      {
     field: 'amount',
     headerName: 'amount',
@@ -141,7 +136,9 @@ const Order = () => {
     required: true
   },
 
-];
+
+    // ... Rest of your columns
+  ];
 
   return (
     <div className="products container">
