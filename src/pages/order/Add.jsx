@@ -8,7 +8,8 @@ import { useStateValue } from "../../utility/stateprovider";
 const Add = (props) => {
     const [{ user ,role}, dispatch] = useStateValue();
   let TOTAL = 0;
-  const { selectedProduct,selectedKind, amount, remain_price, totalPrice, handleProductChange, handleKindChange } = props;
+  const { selectedKind, amount, remain_price, totalPrice,handleKindChange } = props;
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [phone, setphone] = useState(0);
   const [full_name, setfull_name] = useState("");
   const [type_of_order, settype_of_order] = useState(null);
@@ -24,7 +25,19 @@ const Add = (props) => {
   const [errors, setErrors] = useState({});
   let cout = 3;
   const products = props.pro_name_list;
+  useEffect(() => {
+  // Set default values for input fields
+  const defaultValues = {
+    product_name: selectedProduct || '', // Set a default value here
+    // ... Other field defaults ...
+  };
+  props.columns.forEach((column) => {
+    defaultValues[column.field] = column.defaultValue || '';
+  });
+  setForm(defaultValues);
+}, [props.columns, selectedProduct]);
 
+  
   useEffect(() => {
     // Set default values for input fields
     const defaultValues = {};
@@ -86,28 +99,10 @@ const Add = (props) => {
     form.type_of_order = type_of_order;
     form.state_of_order = state_of_order1;
     form.casher_name=user
-   // console.log(form);
+    console.log(form);
     //console.log(selectedProduct );
     if (validateForm()) {
-    console.log(`${server}addNew${props.name}/`, form);
-
-       axios
-        .post(`${server}addNew${props.name}/`, form)
-        .then((response) => {
-          console.log(response.data);
-          { props.setOpen(false) }
-          
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     
-
-
-
-
-
-
     }
   };
 
@@ -118,19 +113,19 @@ const Add = (props) => {
   };
 
   const hudleOrderType = (e) => { 
-    settype_of_order(e.target.value);
-   // console.log(selectedProduct);
-    const { product_name, kind_of_product } = selectedProduct;  
-    //setstate_of_order(e.target.value);
-     const home = getPrice(product_name, kind_of_product,e.target.value);
+  settype_of_order(e.target.value);
+  
+    if (selectedProduct) {
+  
+    const { product_name, kind_of_product } = selectedProduct;
+      const home = getPrice(product_name, kind_of_product, e.target.value);
+        console.log(product_name, kind_of_product);
 
     TOTAL = home;
     setTotal__price(TOTAL);
-   // console.log(TOTAL);
+  }
+};
 
-   // console.log("Home Price:", home);
-    
-  };
 
   const hundleAmount = (e) => { 
     //setAmout_price(e.target.value)
@@ -155,6 +150,10 @@ const Add = (props) => {
       return 0;
     }
   }
+  const handleProductChange = (e) => { 
+   setSelectedProduct(e.target.value);
+  }
+
 
 
   return (
@@ -172,8 +171,7 @@ const Add = (props) => {
             required
             as="select"
             name="product_name"
-            value={selectedProduct ? selectedProduct.id : ''}
-            onChange={(e) => handleProductChange(Number(e.target.value))}
+            onChange={handleProductChange}
             disabled={false} // You can adjust the disabled attribute as needed
           >
             <option value="">None</option>
