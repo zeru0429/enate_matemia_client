@@ -33,10 +33,14 @@ const Price = () => {
       <Row>
         {product.map((item) => (
           <Col key={item.id} md={4} className='mb-4'>
-            <div className='product-card'>
+            <div className='product-card m-5'>
               <BasicExample
                 image_url={`${imageserver}${item.image_url}`}
                 title={item.product_name}
+                kind_of_product={item.kind_of_product}
+                measurement_units={item.measurement_units}
+                home_price={item.home_price}
+                out_price={item.out_price}
                 description={item.date_of_update}
               />
             </div>
