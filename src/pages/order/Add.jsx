@@ -294,5 +294,3 @@ const Add = (props) => {
 };
 
 export default Add;
-
-
