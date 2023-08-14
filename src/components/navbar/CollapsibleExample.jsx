@@ -27,7 +27,7 @@ function CollapsibleExample() {
      axios.defaults.withCredentials = true;
     axios.get(`${server}logout`)
       .then((response) => { 
-        if (response.data.status == 'success') { 
+        if (response.data.status === 'success') { 
           dispatch({
             type: "SET_USER",
             user: null, 
@@ -55,12 +55,12 @@ function CollapsibleExample() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
-            {(role =='super' || role =='admin'  )&&<Nav.Link as={Link} to="/product">Product</Nav.Link>}
+            {(role ==='super' || role ==='admin'  )&&<Nav.Link as={Link} to="/product">Product</Nav.Link>}
             <Nav.Link as={Link} to="/price">Pricing</Nav.Link>
-            {(role =='super' || role =='casher'  )&&<Nav.Link as={Link} to="/order">Orders</Nav.Link>}
-            {(role =='super' || role =='operator'  )&&<Nav.Link as={Link} to="/not-completed-oreder">Not Completed Order</Nav.Link>}
-            {(role =='super' || role =='operator' || role =='casher'  )&&<Nav.Link as={Link} to="/completed-oreder">Completed Order</Nav.Link>}
-            {(role =='super' || role =='admin'  )&&<Nav.Link as={Link} to="/user">Users</Nav.Link>}
+            {(role ==='super' || role ==='casher'  )&&<Nav.Link as={Link} to="/order">Orders</Nav.Link>}
+            {(role ==='super' || role ==='operator'  )&&<Nav.Link as={Link} to="/not-completed-oreder">Not Completed Order</Nav.Link>}
+            {(role ==='super' || role ==='operator' || role ==='casher'  )&&<Nav.Link as={Link} to="/completed-oreder">Completed Order</Nav.Link>}
+            {(role ==='super' || role ==='admin'  )&&<Nav.Link as={Link} to="/user">Users</Nav.Link>}
           </Nav>
           <Nav>
             <Nav.Link eventKey={2} href="#memes">

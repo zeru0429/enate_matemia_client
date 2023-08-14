@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './add.css';
 import { Form, Button } from 'react-bootstrap';
@@ -9,9 +9,24 @@ import AlertExample from '../other/Alert'
 const Add = (props) => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const [added, setadded] = useState(false);
+  const [reload, setReload] = useState(false);
 
+  useEffect(() => {
+    if (added) {
+      setadded(false); // Reset the added state after it triggers a state update
+      setReload(true); // Trigger a reload of the data to reflect the deletion
+    }
+  }, [added]);
+
+  useEffect(() => {
+    if (reload) {
+      // fetchData(); // Refetch the data to update the rows after deletion
+      setReload(false); // Reset the reload state after it triggers a state update
+    }
+  }, [reload]);
   const setField = (field, value) => {
-    console.log(value);
+    //console.log(value);
     setForm({
       ...form,
       [field]: value,
@@ -38,11 +53,10 @@ const Add = (props) => {
      // console.log(`http://localhost:8100/addNew${props.name}/`);
       axios
         .post(`${server}addNew${props.name}/`, formData)
-        .then((response) => {
-          
+        .then((response) => {  
           { props.setOpen(false) }
-          <AlertExample message={`succesfully Added `} variant='success' />
-          console.log(response.data);
+          alert(`succesfully Added `)
+            setadded(true); 
         })
         .catch((error) => {
           console.log(error);

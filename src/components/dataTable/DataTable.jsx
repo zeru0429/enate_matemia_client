@@ -15,12 +15,13 @@ import AlertComponent from '../alert/AlertComponent';
 
 
 export default function DataTable({ first, name }) {
+  const [deleted, setDeleted] = useState(false);
   const [reload, setReload] = useState(false);
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState([]);
   const [filteredUser, setFilteredUser] = useState([]);
   const componentRef = useRef(null);
-  const [deleted, setDeleted] = useState(false);
+
   const [selectedRowData, setSelectedRowData] = useState(null); // State to hold the single-clicked row data
   let [alertdata, setAlertdata] = useState({});
     const navigate = useNavigate();
@@ -111,19 +112,19 @@ export default function DataTable({ first, name }) {
 };
 
 
-useEffect(() => {
-  if (deleted) {
-    setDeleted(false); // Reset the deleted state after it triggers a state update
-    setReload(true); // Trigger a reload of the data to reflect the deletion
-  }
-}, [deleted]);
+    useEffect(() => {
+    if (deleted) {
+      setDeleted(false); // Reset the deleted state after it triggers a state update
+      setReload(true); // Trigger a reload of the data to reflect the deletion
+    }
+    }, [deleted]);
 
-useEffect(() => {
-  if (reload) {
-    fetchData(); // Refetch the data to update the rows after deletion
-    setReload(false); // Reset the reload state after it triggers a state update
-  }
-}, [reload]);
+    useEffect(() => {
+    if (reload) {
+      fetchData(); // Refetch the data to update the rows after deletion
+      setReload(false); // Reset the reload state after it triggers a state update
+    }
+    }, [reload]);
 
   // columns define for table
   const columns = user.length > 0
