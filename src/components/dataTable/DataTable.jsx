@@ -7,7 +7,7 @@ import { useReactToPrint } from 'react-to-print';
 import './dataTable.css'; // add the CSS file
 import Button2 from 'react-bootstrap/Button';
 import SinglePage from '../singlePage/SinglePage';
-import { redirect } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import Add from "../../components/add/Add";
 import Show from "../../components/add/Show";
 import { server ,imageserver} from '../../constants';
@@ -23,6 +23,7 @@ export default function DataTable({ first, name }) {
   const [deleted, setDeleted] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null); // State to hold the single-clicked row data
   let [alertdata, setAlertdata] = useState({});
+    const navigate = useNavigate();
   useEffect(() => {
     fetchData();
   }, []);
@@ -91,45 +92,38 @@ export default function DataTable({ first, name }) {
     content: () => componentRef.current,
   });
 
-  const handleDelete = (id) => {
-    const confirmed = window.confirm(`Are you sure? \n you want to delete ${first}`)
-  // console.log(`http://localhost:8100/delete${first}/${id}`);
-    if (confirmed) {
-      axios
-        .delete(`${server}delete${first}/${id}`)
-        .then((response) => {
-          alert(response.data)
+ const handleDelete = (id) => {
+  const confirmed = window.confirm(`Are you sure? \n you want to delete ${first}`);
+  if (confirmed) {
+    axios
+      .delete(`${server}delete${first}/${id}`)
+      .then((response) => {
+        alert(response.data);
+        setDeleted(true); // Set deleted to true to trigger a state update
+      })
+      .catch((error) => {
+        alert(error);
+        console.error(error);
+      });
+  } else {
+    alert('delete canceled');
+  }
+};
 
-          // setAlertdata = {
-          //   message: response.data,
-          //   color: 'success'
-          // }
-        
-         
-        })
-        .catch((error) => {
-          alert(error)
-          console.error(error);
-        });
-    }
-    else { 
-      alert('delete canceled');
-    }
-  };
 
-  useEffect(() => {
-    if (deleted) {
-      setDeleted(false);
-      setReload(false);
-    }
-  }, [deleted]);
+useEffect(() => {
+  if (deleted) {
+    setDeleted(false); // Reset the deleted state after it triggers a state update
+    setReload(true); // Trigger a reload of the data to reflect the deletion
+  }
+}, [deleted]);
 
-  useEffect(() => {
-    if (reload) {
-      fetchData(); // Refetch the data to update the rows after deletion
-      setReload(false);
-    }
-  }, [reload]);
+useEffect(() => {
+  if (reload) {
+    fetchData(); // Refetch the data to update the rows after deletion
+    setReload(false); // Reset the reload state after it triggers a state update
+  }
+}, [reload]);
 
   // columns define for table
   const columns = user.length > 0

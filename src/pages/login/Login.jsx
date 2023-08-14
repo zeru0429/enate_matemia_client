@@ -12,7 +12,6 @@ const Login = () => {
   const [auth, setAuth] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-   ;
 
   const setField = (field, value) => {
     setForm({
@@ -33,7 +32,7 @@ const Login = () => {
     if (validateForm()) {
       try {
         axios.defaults.withCredentials = true;
-        const response = await axios.post(`${server}logincheck`,form);
+        const response = await axios.post(`${server}login`,form);
         const data = response.data;
         console.log(response);
         if (data.status === 'success') {
@@ -121,12 +120,6 @@ const Login = () => {
 
     checkLoginStatus();
   }, [navigate]);
-
-
-
-
-
-
 
   return (
     <Container style={{ maxWidth: '50vh' }} className="d-flex mt-3 justify-content-center align-items-center vh-50">

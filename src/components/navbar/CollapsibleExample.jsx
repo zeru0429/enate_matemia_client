@@ -30,7 +30,7 @@ function CollapsibleExample() {
         if (response.data.status == 'success') { 
           dispatch({
             type: "SET_USER",
-            user: null,
+            user: null, 
         });
           navigate('/login')
           //location.reload(true);
