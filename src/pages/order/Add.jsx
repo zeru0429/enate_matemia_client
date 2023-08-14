@@ -25,6 +25,10 @@ const Add = (props) => {
   const [errors, setErrors] = useState({});
   let cout = 3;
   const products = props.pro_name_list;
+
+
+
+  
   useEffect(() => {
   // Set default values for input fields
   const defaultValues = {
@@ -88,8 +92,8 @@ const Add = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    form.product_name = selectedProduct.product_name
-    form.kind_of_product = selectedProduct.kind_of_product
+    form.product_name = selectedProduct;
+    form.kind_of_product = selectedProduct;
     form.amount = amout_price;
     form.total_price = total;
     form.paid_price = paid_price;
@@ -100,7 +104,8 @@ const Add = (props) => {
     form.state_of_order = state_of_order1;
     form.casher_name=user
     console.log(form);
-    //console.log(selectedProduct );
+
+    console.log(products);
     if (validateForm()) {
     
     }
@@ -114,15 +119,24 @@ const Add = (props) => {
 
   const hudleOrderType = (e) => { 
   settype_of_order(e.target.value);
-  
+    // console.log(selectedProduct);
+     console.log(products);
     if (selectedProduct) {
+      const selectedProductId = parseInt(selectedProduct); // Example selected product id
+        const productProperties = getProductPropertiesById(selectedProductId, products);
+      if (productProperties) {
   
-    const { product_name, kind_of_product } = selectedProduct;
-      const home = getPrice(product_name, kind_of_product, e.target.value);
-        console.log(product_name, kind_of_product);
+    const  kind_of_product = productProperties.kind_of_product
+    const product_name =  productProperties.product_name
 
-    TOTAL = home;
-    setTotal__price(TOTAL);
+     const home = getPrice(product_name, kind_of_product, e.target.value);
+       
+     TOTAL = home;
+     setTotal__price(TOTAL);
+
+} else {
+  console.log("Product not found with id:", selectedProductId);
+}
   }
 };
 
@@ -151,10 +165,23 @@ const Add = (props) => {
     }
   }
   const handleProductChange = (e) => { 
-   setSelectedProduct(e.target.value);
+    setSelectedProduct(e.target.value);
+    const selectedProductId = e.target.value;
+  const selectedProduct = props.columns[0].options.find(option => option.id === selectedProductId);
   }
 
+  function getProductPropertiesById(id, products) {
+  const product = products.find((product) => product.id === id);
 
+  if (product) {
+    return {
+      kind_of_product: product.kind_of_product,
+      product_name: product.product_name
+    };
+  } else {
+    return null; // Return null if the product with the specified id is not found
+  }
+}
 
   return (
     <>
@@ -171,6 +198,7 @@ const Add = (props) => {
             required
             as="select"
             name="product_name"
+            value={selectedProduct}
             onChange={handleProductChange}
             disabled={false} // You can adjust the disabled attribute as needed
           >
@@ -213,12 +241,12 @@ const Add = (props) => {
         <Form.Group key="total_price">
           <Form.Label>Single Pricing</Form.Label>
               <Form.Control
-            id='totalId'
-            type="number"
-             name="total_price"
-           value={total__price}
-            onChange={(e) => setTotal__price(amout_price)}
-            disabled
+                id='totalId'
+                type="number"
+                name="total_price"
+                value={total__price}
+                onChange={(e) => setTotal__price(amout_price)}
+                disabled={false}
           />
         </Form.Group>
         <Form.Group key="paid_price">
@@ -238,7 +266,7 @@ const Add = (props) => {
             placeholder='remain_price'
             name="remain_price"
             value={total_remain_price}
-            disabled='true'
+            disabled={false}
           />
         </Form.Group>
         <Form.Group key="full_name">
