@@ -152,7 +152,7 @@ export default function DataTable({ first, name }) {
     <>
     <div>
       <div ref={componentRef}>
-        <DataGrid
+       <DataGrid
           rows={rows}
           columns={columns.concat(actionColumn)}
           autoHeight
@@ -165,7 +165,9 @@ export default function DataTable({ first, name }) {
               quickFilterProps: { debounceMs: 300 },
             },
           }}
-          pageSizeOptions={[5]}
+          pagination
+          pageSize={20}
+          rowsPerPageOptions={[5, 10, 20]}
           checkboxSelection
           disableRowSelectionOnClick
           disableColumnFilter
@@ -173,6 +175,7 @@ export default function DataTable({ first, name }) {
           disableColumnSelector
           className="dataTable"
         />
+
         {open && (
           <Show name={first} columns={columns} setOpen={setOpen} rowData={selectedRowData} />
         )}

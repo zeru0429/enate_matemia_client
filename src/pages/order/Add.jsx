@@ -6,6 +6,9 @@ import { server, imageserver } from '../../constants';
 import { useStateValue } from "../../utility/stateprovider";
 
 const Add = (props) => {
+ 
+   const [added, setadded] = useState(false);
+  const [reload, setReload] = useState(false);
     const [{ user ,role}, dispatch] = useStateValue();
   let TOTAL = 0;
   const { selectedKind, amount, remain_price, totalPrice,handleKindChange } = props;
@@ -23,6 +26,8 @@ const Add = (props) => {
   const [selectedOrder, setselectedOrder] = useState(null);
   const [total, setTotal] = useState(0);
   const [errors, setErrors] = useState({});
+  const [product_name1, setproduct_name1] = useState(null);
+  const [product_kind1, setproduct_kind1] = useState(null);
   let cout = 3;
   const products = props.pro_name_list;
 
@@ -74,6 +79,29 @@ const Add = (props) => {
   //console.log(total__price * amout_price);
   
   }, [selectedProduct]);
+   
+  useEffect(() => {
+    if (added) {
+      setadded(false); // Reset the added state after it triggers a state update
+      setReload(true); // Trigger a reload of the data to reflect the deletion
+    }
+  }, [added]);
+
+  useEffect(() => {
+    if (reload) {
+      // fetchData(); // Refetch the data to update the rows after deletion
+      setReload(false); // Reset the reload state after it triggers a state update
+    }
+  }, [reload]);
+  
+  useEffect(() => {
+  if (added || reload) {
+    // fetchData(); // Fetch the updated data here
+    setadded(false);
+    setReload(false);
+  }
+}, [added, reload]);
+
 
   const setField = (field, value) => {
     setForm((prevForm) => ({
@@ -90,26 +118,38 @@ const Add = (props) => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    form.product_name = selectedProduct;
-    form.kind_of_product = selectedProduct;
-    form.amount = amout_price;
-    form.total_price = total;
-    form.paid_price = paid_price;
-    form.phone = phone;
-    form.fullname = full_name;
-    form.remain_price = total_remain_price;
-    form.type_of_order = type_of_order;
-    form.state_of_order = state_of_order1;
-    form.casher_name=user
-    console.log(form);
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  form.product_name = product_name1;
+  form.kind_of_product = product_kind1;
+  form.amount = amout_price;
+  form.total_price = total;
+  form.paid_price = paid_price;
+  form.phone = phone;
+  form.fullname = full_name;
+  form.remain_price = total_remain_price;
+  form.type_of_order = type_of_order;
+  form.state_of_order = state_of_order1;
+  form.casher_name = user;
 
-    console.log(products);
-    if (validateForm()) {
-    
-    }
-  };
+  console.log(form);
+
+  console.log(`${server}addNew${props.name}/`);
+  if (validateForm()) {
+    axios
+      .post(`${server}addNew${props.name}/`, form)
+      .then((response) => {
+        { props.setOpen(false) }
+        alert(`Successfully Added `);
+        setadded(true);
+        setReload(true); // Trigger a reload of the data after successful addition
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+};
+
 
   const validateForm = () => {
     let isValid = true;
@@ -125,9 +165,11 @@ const Add = (props) => {
       const selectedProductId = parseInt(selectedProduct); // Example selected product id
         const productProperties = getProductPropertiesById(selectedProductId, products);
       if (productProperties) {
-  
-    const  kind_of_product = productProperties.kind_of_product
-    const product_name =  productProperties.product_name
+        const  kind_of_product = productProperties.kind_of_product
+       const product_name =  productProperties.product_name
+        setproduct_name1(productProperties.product_name);
+        setproduct_kind1(productProperties.kind_of_product);
+    
 
      const home = getPrice(product_name, kind_of_product, e.target.value);
        
@@ -164,6 +206,7 @@ const Add = (props) => {
       return 0;
     }
   }
+
   const handleProductChange = (e) => { 
     setSelectedProduct(e.target.value);
     const selectedProductId = e.target.value;
@@ -183,6 +226,7 @@ const Add = (props) => {
   }
 }
 
+  
   return (
     <>
     <div className="add container">
