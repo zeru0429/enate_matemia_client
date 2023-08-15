@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './profile.css'
-import Add from "../../components/add/Add";
+import Add from "./Add";
+import { useStateValue } from "../../utility/stateprovider";
+import { imageserver, server } from '../../constants';
 
 const columns = [
     {
@@ -60,6 +62,7 @@ const columns2 = [
 
 
 const Profile = () => {
+   const [{ user ,role}, dispatch] = useStateValue();
   const [profileData, setProfileData] = useState(null);
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -81,7 +84,7 @@ const Profile = () => {
     const fetchData = async () => {
       try {
         // Make an API request to fetch the profile data
-        const response = await fetch('http://localhost:8100/profile/abem');
+        const response = await fetch(`${server}profile/${user}`);
         const data = await response.json();
         setProfileData(data[0]);
         // console.log(data[0]);
@@ -100,7 +103,7 @@ const Profile = () => {
   return (
     <div className="profile">
       <div className="profile-header">  
-        <img src={`http://localhost:8100/${profileData.image_url}`} alt="Profile Picture" className="profile-picture" />
+        <img src={`${server}/${profileData.image_url}`} alt="Profile Picture" className="profile-picture" />
       </div>
       <div className="profile-info">
         <h2>{profileData.f_name} {profileData.m_name} {profileData.l_name}</h2>
@@ -108,7 +111,7 @@ const Profile = () => {
         <p>Role: {profileData.role}</p>
         <p>Phone: {profileData.phone}</p>
         <button className='btn btn-warning' onClick={handleChangePasswordClick}>Change Password</button>
-        <button className='btn btn-primary' onClick={handleChangeUpdateProfileClick}>Update Profile</button>
+        {/* <button className='btn btn-primary' onClick={handleChangeUpdateProfileClick}>Update Profile</button> */}
         {open &&<Add name= 'change_password' columns={columns} setOpen={setOpen} />} 
        {open2 &&<Add name= 'updateProfile' columns={columns2} setOpen={setOpen2} />}
       </div>

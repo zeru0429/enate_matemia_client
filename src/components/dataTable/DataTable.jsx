@@ -7,19 +7,24 @@ import { useReactToPrint } from 'react-to-print';
 import './dataTable.css'; // add the CSS file
 import Button2 from 'react-bootstrap/Button';
 import SinglePage from '../singlePage/SinglePage';
-import { redirect } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import Add from "../../components/add/Add";
 import Show from "../../components/add/Show";
-import { myGlobalVariable } from '../../constants';
+import { server ,imageserver} from '../../constants';
+import AlertComponent from '../alert/AlertComponent';
+
+
 export default function DataTable({ first, name }) {
+  const [deleted, setDeleted] = useState(false);
   const [reload, setReload] = useState(false);
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState([]);
   const [filteredUser, setFilteredUser] = useState([]);
   const componentRef = useRef(null);
-  const [deleted, setDeleted] = useState(false);
-  const [selectedRowData, setSelectedRowData] = useState(null); // State to hold the single-clicked row data
 
+  const [selectedRowData, setSelectedRowData] = useState(null); // State to hold the single-clicked row data
+  let [alertdata, setAlertdata] = useState({});
+    const navigate = useNavigate();
   useEffect(() => {
     fetchData();
   }, []);
@@ -37,7 +42,7 @@ export default function DataTable({ first, name }) {
       };
 
       const onClickDelete = () => {
-       handleDelete(`${params.row.id}`,`${params.row.product_name}`);
+       handleDelete(`${params.row.id}`);
       };
 
       return (
@@ -56,7 +61,7 @@ export default function DataTable({ first, name }) {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${myGlobalVariable}${first}`);
+      const response = await axios.get(`${server}${first}`);
       setUser(response.data);
       setFilteredUser(response.data);
     } catch (error) {
@@ -88,33 +93,38 @@ export default function DataTable({ first, name }) {
     content: () => componentRef.current,
   });
 
-const handleDelete = (idnum, name) => {
-  //console.log(`http://localhost:8100/deleteproducts/${idnum}/${name}`);
-  axios
-    .delete(`http://localhost:8100/deleteproducts/${idnum}:${name}`)
-    .then((response) => {
-      console.log(response);
-      setDeleted(true); // update the deleted state
-      setReload(true); // trigger the re-render
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+ const handleDelete = (id) => {
+  const confirmed = window.confirm(`Are you sure? \n you want to delete ${first}`);
+  if (confirmed) {
+    axios
+      .delete(`${server}delete${first}/${id}`)
+      .then((response) => {
+        alert(response.data);
+        setDeleted(true); // Set deleted to true to trigger a state update
+      })
+      .catch((error) => {
+        alert(error);
+        console.error(error);
+      });
+  } else {
+    alert('delete canceled');
+  }
 };
 
-  useEffect(() => {
-    if (deleted) {
-      setDeleted(false);
-      setReload(false);
-    }
-  }, [deleted]);
 
-  useEffect(() => {
+    useEffect(() => {
+    if (deleted) {
+      setDeleted(false); // Reset the deleted state after it triggers a state update
+      setReload(true); // Trigger a reload of the data to reflect the deletion
+    }
+    }, [deleted]);
+
+    useEffect(() => {
     if (reload) {
       fetchData(); // Refetch the data to update the rows after deletion
-      setReload(false);
+      setReload(false); // Reset the reload state after it triggers a state update
     }
-  }, [reload]);
+    }, [reload]);
 
   // columns define for table
   const columns = user.length > 0
@@ -139,9 +149,10 @@ const handleDelete = (idnum, name) => {
   };
 
   return (
-    <Container>
+    <>
+    <div>
       <div ref={componentRef}>
-        <DataGrid
+       <DataGrid
           rows={rows}
           columns={columns.concat(actionColumn)}
           autoHeight
@@ -154,7 +165,9 @@ const handleDelete = (idnum, name) => {
               quickFilterProps: { debounceMs: 300 },
             },
           }}
-          pageSizeOptions={[5]}
+          pagination
+          pageSize={20}
+          rowsPerPageOptions={[5, 10, 20]}
           checkboxSelection
           disableRowSelectionOnClick
           disableColumnFilter
@@ -162,10 +175,13 @@ const handleDelete = (idnum, name) => {
           disableColumnSelector
           className="dataTable"
         />
+
         {open && (
-          <Show name={name} columns={columns} setOpen={setOpen} rowData={selectedRowData} />
+          <Show name={first} columns={columns} setOpen={setOpen} rowData={selectedRowData} />
         )}
       </div>
-    </Container>
+     
+      </div>
+    </>
   );
 }

@@ -12,7 +12,7 @@ import './dataTable.css'; // add the CSS file
 
 //component
 import Show from "../../components/add/Show";
-import { myGlobalVariable } from '../../constants'
+import {imageserver,server } from '../../constants'
 
 export default function DataTable({ first, name }) {
   const [open, setOpen] = useState(false);
@@ -28,7 +28,8 @@ export default function DataTable({ first, name }) {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${myGlobalVariable}${first}`);
+      //console.log(`${myGlobalVariable}${first}`);
+      const response = await axios.get(`${server}${first}`);
       setUser(response.data);
       setFilteredUser(response.data);
     } catch (error) {
@@ -138,37 +139,15 @@ export default function DataTable({ first, name }) {
     saveAs(blob, `${name}.csv`);
   };
 
-  const handleUpdateStatus = (idnum, name) => {
-    const url = `${myGlobalVariable}update${first}/${idnum}`;
+  const handleUpdateStatus = async (idnum, name) => {
     const data = { status: 'completed' };
 
-    axios.put(url, data)
-      .then((response) => {
-        if (response.status != 200) { 
-        // update the filteredUser state by setting the status of the completed task to "completed"
-        setFilteredUser(prevFilteredUser => prevFilteredUser.map((row, index) => {
-          if (row.id === idnum && row.product_name === name) {
-            return {
-              ...row,
-              status: 'completed',
-            };
-          } else if (index === 0 && row.status === 'ordered') {
-            // set the status of the first row with status "ordered" to "pending"
-            return {
-              ...row,
-              status: 'pending',
-            };
-          } else {
-            return row;
-          }
-        }));
-      
-        }
-        
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const response = await axios.post(`${server}update-not-completed-order/${idnum}`, {
+    status: data
+  })
+    console.log(response);
+    
+
     
     
   };

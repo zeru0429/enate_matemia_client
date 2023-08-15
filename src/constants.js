@@ -1,2 +1,2 @@
-export const myGlobalVariable = 'http://localhost:8100/';
-// //http://localhost:8100/16912138325991687087691142.jpeg
+export const server = 'http://192.168.1.250:8100/';
+export const imageserver = 'http://192.168.1.250:8100/';

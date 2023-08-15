@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './product.css'
 import DataTable from "../../components/dataTable/DataTable";
 import Add from "../../components/add/Add";
+import AdminPanal from './AdminPanel'
+import AddOrder from './AddOrder'
 
 const columns = [
   {
@@ -10,38 +12,46 @@ const columns = [
     type: 'text',
     required: true
   },
-    {
+  {
     field: 'kind_of_product',
     headerName: 'kind_of_product',
-    type: 'text',
+    type: 'select',
+    options: [
+      { label: 'Normal', value: 'Normal' },
+      { label: 'Reflective', value: 'Reflective' },
+    ],
     required: true
   },
-  {
+   {
     field: 'measurement_units',
     headerName: 'measurement_units',
-    type: 'text',
+    type: 'select',
+    options: [
+      { label: 'kare', value: 'kare' },
+      { label: 'meter', value: 'meter' },
+       { label: 'number', value: 'number' },
+    ],
     required: true
   },
-
+  
   {
     field: 'home_price',
     headerName: 'home_price',
     type: 'number',
     required: true
   },
-    {
+  {
     field: 'out_price',
     headerName: 'out_price',
     type: 'number',
     required: true
   },
-     {
+  {
     field: 'profile',
     headerName: 'Image',
     type: 'image',
     required: true
   }
-    
 ];
     
 const Product = () => {
@@ -67,7 +77,9 @@ const Product = () => {
       </div>
       
       <DataTable first="products" />
-      {open &&<Add name= 'products' columns={columns} setOpen={setOpen} />}
+      {open && <Add name='products' columns={columns} setOpen={setOpen} />}
+      {/* <AdminPanal /> */}
+      {/* <AddOrder />  */}
     </div>
   )
 }
